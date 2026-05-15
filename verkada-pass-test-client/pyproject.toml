@@ -1,0 +1,23 @@
+[project]
+name = "verkada-pass-test-client"
+version = "0.1.0"
+description = "Interactive test client for Verkada Pass magic-link login and remote unlock"
+readme = "README.md"
+authors = [
+    { name = "Woyken", email = "13166802+Woyken@users.noreply.github.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.28.1",
+    "tomli-w>=1.2.0",
+]
+
+[project.scripts]
+verkada-pass-test-client = "verkada_pass_test_client:main"
+
+[build-system]
+requires = ["uv_build>=0.9.13,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv]
+package = true

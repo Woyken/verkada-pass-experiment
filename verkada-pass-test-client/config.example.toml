@@ -1,0 +1,18 @@
+# Copy this file to config.toml and fill in the values you want to preconfigure.
+
+email = ""
+org_short_name = ""
+
+# Leave empty if you want the app to prompt you to paste the magic-link URL.
+magic_link_url = ""
+
+# APK-backed default. Override if you want to experiment with another value.
+unlock_method = "mobile"
+
+# When true, the app will call POST /auth/magic before asking you to paste the link.
+request_magic_link_first = true
+
+# Relative paths are resolved from the folder that contains config.toml.
+session_file = ".verkada-pass-session.toml"
+
+timeout_seconds = 30.0
