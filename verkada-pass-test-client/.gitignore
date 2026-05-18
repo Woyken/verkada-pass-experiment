@@ -12,3 +12,4 @@ wheels/
 # Local config and saved auth state
 config.toml
 .verkada-pass-session.toml
+.verkada-pass-ble.toml

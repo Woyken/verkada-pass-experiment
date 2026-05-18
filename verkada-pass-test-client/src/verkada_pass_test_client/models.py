@@ -117,15 +117,68 @@ class SessionState:
 
 
 @dataclass(slots=True)
+class DoorScheduleEvent:
+    door_permission_state: str
+    start_datetime: str
+    end_datetime: str
+
+    @classmethod
+    def from_api(cls, data: dict[str, Any]) -> "DoorScheduleEvent":
+        return cls(
+            door_permission_state=str(data["doorPermissionState"]),
+            start_datetime=str(data["startDateTime"]),
+            end_datetime=str(data["endDateTime"]),
+        )
+
+
+@dataclass(slots=True)
+class DoorSchedule:
+    door_id: str
+    start_datetime: str
+    end_datetime: str
+    events: list[DoorScheduleEvent]
+    raw: dict[str, Any] | None = None
+
+    @classmethod
+    def from_api(cls, data: dict[str, Any]) -> "DoorSchedule":
+        door_id = str(data["doorId"])
+        events_raw = data.get("events")
+        if not isinstance(events_raw, list):
+            raise ValueError("Door schedule payload did not include an events array.")
+
+        events = [DoorScheduleEvent.from_api(item) for item in events_raw if isinstance(item, dict)]
+        return cls(
+            door_id=door_id,
+            start_datetime=str(data["startDateTime"]),
+            end_datetime=str(data["endDateTime"]),
+            events=events,
+            raw=data,
+        )
+
+    def distinct_states(self) -> list[str]:
+        states: list[str] = []
+        for event in self.events:
+            if event.door_permission_state not in states:
+                states.append(event.door_permission_state)
+        return states
+
+
+@dataclass(slots=True)
 class DoorRecord:
     access_point_id: str
     name: str
     access_controller_id: str | None = None
     floor_id: str | None = None
+    schedule: DoorSchedule | None = None
     raw: dict[str, Any] | None = None
 
     @classmethod
-    def from_api(cls, data: dict[str, Any]) -> "DoorRecord":
+    def from_api(
+        cls,
+        data: dict[str, Any],
+        *,
+        schedule: DoorSchedule | None = None,
+    ) -> "DoorRecord":
         access_point_id = str(data.get("doorId") or data.get("accessPointId") or data.get("id") or "")
         if not access_point_id:
             raise ValueError("Door payload did not include a usable access-point ID.")
@@ -135,6 +188,7 @@ class DoorRecord:
             name=str(data.get("name") or access_point_id),
             access_controller_id=(str(data["accessControllerId"]) if data.get("accessControllerId") else None),
             floor_id=(str(data["floorId"]) if data.get("floorId") else None),
+            schedule=schedule,
             raw=data,
         )
 

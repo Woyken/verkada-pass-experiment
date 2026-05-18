@@ -62,6 +62,14 @@ The derived permissions model in the app includes:
 
 The app also presents user-facing strings about nearby doors, Bluetooth unlock, and the permissions needed for it.
 
+From the service lifecycle code:
+
+- the app starts `BleService` only when BLE unlock is allowed for the account and the required Bluetooth permissions are granted
+- the app stops the service on logout
+- the service runs as a foreground service with the user-visible notification text equivalent to "Bluetooth unlock is on"
+
+So the BLE peripheral path is **not always on** for every session or every account. It is conditionally started and then kept alive as a foreground service while active.
+
 ## Central mode details
 
 ### Discovery
@@ -189,3 +197,14 @@ Remote unlock fits a widget tap well. BLE unlock is better suited to a full fore
 - a foreground service
 - continuous scanning or advertising
 - GATT interactions with nearby hardware
+
+## Remote unlock relationship
+
+The APK does **not** show BLE peripheral mode as a prerequisite for the remote HTTP unlock endpoint.
+
+Important distinction:
+
+- BLE peripheral mode is for local hands-free unlock with a nearby reader
+- remote unlock is a direct authenticated HTTP request
+
+There is one nearby-behavior nuance: the app also has passive nearby scanning code that can run when remote unlock or Bluetooth unlock is allowed, likely for nearby-door UX and permission handling. But that is separate from the dedicated `BleService` foreground service and is not evidence that remote unlock requires a live BLE handshake first.

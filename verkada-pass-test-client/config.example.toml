@@ -6,6 +6,10 @@ org_short_name = ""
 # Leave empty if you want the app to prompt you to paste the magic-link URL.
 magic_link_url = ""
 
+# Leave empty if you want the app to prompt you to choose a mode.
+# Supported values: "remote", "ble-central", "ble-peripheral"
+mode = ""
+
 # APK-backed default. Override if you want to experiment with another value.
 unlock_method = "mobile"
 
@@ -14,5 +18,21 @@ request_magic_link_first = true
 
 # Relative paths are resolved from the folder that contains config.toml.
 session_file = ".verkada-pass-session.toml"
+ble_keys_file = ".verkada-pass-ble.toml"
+
+# Leave empty to default BLE payloads to the current session user.
+ble_user_id = ""
+ble_scan_timeout_seconds = 10.0
+
+# The APK registers BLE keys as platform = ANDROID. These fields are configurable for testing.
+ble_registration_platform = "ANDROID"
+ble_registration_version = "python-test-client"
+ble_registration_make = "python-test-client"
+ble_registration_model = "python-test-client"
+ble_registration_name = "python-test-client"
 
 timeout_seconds = 30.0
+
+[reader_user_ids]
+# Example:
+# APL123456 = "00000000-0000-0000-0000-000000000000"

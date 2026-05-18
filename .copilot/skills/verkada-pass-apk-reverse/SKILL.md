@@ -16,16 +16,16 @@ Use for `com.verkada.VerkadaPass` when tracing login, door unlock, or BLE behavi
 ```powershell
 apkeep -a com.verkada.VerkadaPass -l .
 apkeep -a com.verkada.VerkadaPass -v <version> .
-jadx -d "jadx output <version>" "com.verkada.VerkadaPass@<version>.apk"
-jadx-gui "com.verkada.VerkadaPass@<version>.apk"
+jadx --deobf -d "jadx output <version>" "com.verkada.VerkadaPass@<version>.apk"
+jadx-gui --deobf "com.verkada.VerkadaPass@<version>.apk"
 apktool d -f "com.verkada.VerkadaPass@<version>.apk" -o "apktool output <version>"
 ```
 
 Fallback for mangled classes:
 
 ```powershell
-jadx -m fallback --single-class zp.h0 --single-class-output "jadx fallback h0.java" "com.verkada.VerkadaPass@<version>.apk"
-jadx -m fallback --single-class z.u1 --single-class-output "jadx fallback u1.java" "com.verkada.VerkadaPass@<version>.apk"
+jadx --deobf -m fallback --single-class zp.h0 --single-class-output "jadx fallback h0.java" "com.verkada.VerkadaPass@<version>.apk"
+jadx --deobf -m fallback --single-class z.u1 --single-class-output "jadx fallback u1.java" "com.verkada.VerkadaPass@<version>.apk"
 ```
 
 ## Read first
@@ -61,6 +61,7 @@ jadx -m fallback --single-class z.u1 --single-class-output "jadx fallback u1.jav
 ## Rules
 
 - Record APK version for every claim.
+- Always use JADX with `--deobf`.
 - Record only verified claims.
 - Mark unknowns as unresolved until directly proven.
 - Use APKTool/smali or fallback JADX only when normal decompile is ambiguous.

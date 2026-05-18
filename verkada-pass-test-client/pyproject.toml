@@ -1,14 +1,18 @@
 [project]
 name = "verkada-pass-test-client"
 version = "0.1.0"
-description = "Interactive test client for Verkada Pass magic-link login and remote unlock"
+description = "Interactive test client for Verkada Pass magic-link login, remote unlock, and BLE flows"
 readme = "README.md"
 authors = [
     { name = "Woyken", email = "13166802+Woyken@users.noreply.github.com" }
 ]
 requires-python = ">=3.11"
 dependencies = [
+    "bleak>=3.0.2",
+    "bless>=0.2.6",
     "httpx>=0.28.1",
+    "pynacl>=1.6.2",
+    "pysetupdi",
     "tomli-w>=1.2.0",
 ]
 
@@ -21,3 +25,6 @@ build-backend = "uv_build"
 
 [tool.uv]
 package = true
+
+[tool.uv.sources]
+pysetupdi = { git = "https://github.com/gwangyi/pysetupdi" }
