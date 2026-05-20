@@ -401,10 +401,14 @@ Minimum requirements:
 2. `accessPointId` of the door (from the unlockables response)
 3. Call: `POST https://vcerberus.command.verkada.com/access/v2/user/virtual_device/{accessPointId}/unlock` with body `{"unlockMethod": "nearby"}`
 
-Optional (mirrors the official app):
-- Scan for iBeacon UUID `AC3EF23C-70D8-4773-97AD-B9A566A0FB40` first; only call with "nearby" when the matching beacon is detected (the server may simply trust the client on this, but proximity scanning is safer)
+**No BLE scanning required.** The server does zero proximity validation — confirmed by:
+- `RemoteUnlockRequest` has exactly one field (`unlockMethod: String`), no beacon data, no RSSI, no location
+- `UnlockResponse` has exactly one field (`duration: double`)
+- Live test confirmed: `unlockMethod: "nearby"` succeeds from outside Bluetooth range
 
-The Python test client supports this today via `client.unlock_door(session, access_point_id, "nearby")`.
+The `"nearby"` string is purely a **permission key**, not a proximity proof. The server simply checks `ble-unlock-enabled=true` for the org and approves the request. Physical proximity is enforced only by the official app's client-side UI (which gates the "Nearby Doors" section behind iBeacon detection), not by the server.
+
+The Python test client supports this via `--mode nearby` or `client.unlock_door(session, access_point_id, "nearby")`.
 
 UI action classes (for reference):
 - `C7429e` = `RequestedUnlock(accessPointId)` — marks door as "unlocking" in list
