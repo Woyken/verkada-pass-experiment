@@ -192,6 +192,22 @@ class DoorRecord:
             raw=data,
         )
 
+    def reader_serial_numbers(self) -> list[str]:
+        if not isinstance(self.raw, dict):
+            return []
+        reader_peripherals = self.raw.get("readerPeripherals")
+        if not isinstance(reader_peripherals, list):
+            return []
+
+        serials: list[str] = []
+        for item in reader_peripherals:
+            if not isinstance(item, dict):
+                continue
+            serial = str(item.get("serialNumber") or "").strip()
+            if serial and serial not in serials:
+                serials.append(serial)
+        return serials
+
 
 @dataclass(slots=True)
 class UnlockResult:

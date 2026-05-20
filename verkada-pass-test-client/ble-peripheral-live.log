@@ -1,0 +1,37 @@
+2026-05-19 19:12:11,417 [DEBUG] asyncio: Using proactor: IocpProactor
+2026-05-19 19:12:11,417 [INFO] verkada_pass_test_client.bluetooth: === BLE PERIPHERAL MODE START ===
+2026-05-19 19:12:11,417 [INFO] verkada_pass_test_client.bluetooth: Step 1/4: Load or create local BLE key pair
+2026-05-19 19:12:11,417 [INFO] verkada_pass_test_client.bluetooth: Loading existing BLE keys from C:\Projects\Personal\verkada\verkada-pass-test-client\.verkada-pass-ble.toml
+2026-05-19 19:12:11,417 [DEBUG] verkada_pass_test_client.bluetooth: Loaded BLE keys: public_key=688b0ac4ff9f9ade458588d1d96f8bc8bfb9533f823d7b0e37e59eeeba0ecf7b fingerprint=7b4723633320b51110e62bd705cc7040c3cccb8787829289f86b4c18fb7ba670
+2026-05-19 19:12:11,417 [INFO] verkada_pass_test_client.bluetooth: Step 2/4: Ensure BLE public key is registered with backend
+2026-05-19 19:12:11,417 [INFO] verkada_pass_test_client.bluetooth: Checking whether BLE public key 7b4723633320b51110e62bd705cc7040c3cccb8787829289f86b4c18fb7ba670 is registered with the backend...
+2026-05-19 19:12:11,417 [DEBUG] httpcore.connection: connect_tcp.started host='vcerberus.command.verkada.com' port=443 local_address=None timeout=30.0 socket_options=None
+2026-05-19 19:12:11,638 [DEBUG] httpcore.connection: connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000187159A6E90>
+2026-05-19 19:12:11,638 [DEBUG] httpcore.connection: start_tls.started ssl_context=<ssl.SSLContext object at 0x00000187158DE9F0> server_hostname='vcerberus.command.verkada.com' timeout=30.0
+2026-05-19 19:12:12,012 [DEBUG] httpcore.connection: start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000187159A6F10>
+2026-05-19 19:12:12,012 [DEBUG] httpcore.http11: send_request_headers.started request=<Request [b'GET']>
+2026-05-19 19:12:12,012 [DEBUG] httpcore.http11: send_request_headers.complete
+2026-05-19 19:12:12,012 [DEBUG] httpcore.http11: send_request_body.started request=<Request [b'GET']>
+2026-05-19 19:12:12,012 [DEBUG] httpcore.http11: send_request_body.complete
+2026-05-19 19:12:12,012 [DEBUG] httpcore.http11: receive_response_headers.started request=<Request [b'GET']>
+2026-05-19 19:12:12,335 [DEBUG] httpcore.http11: receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'content-encoding', b'gzip'), (b'content-length', b'520'), (b'content-type', b'application/json'), (b'date', b'Tue, 19 May 2026 16:12:12 GMT'), (b'server', b'istio-envoy'), (b'vary', b'Accept-Encoding'), (b'x-envoy-upstream-service-time', b'129'), (b'cross-origin-resource-policy', b'cross-origin')])
+2026-05-19 19:12:12,335 [INFO] httpx: HTTP Request: GET https://vcerberus.command.verkada.com/a21fd752-1715-47c4-8993-10c868b5a3e6/keys "HTTP/1.1 200 OK"
+2026-05-19 19:12:12,335 [DEBUG] httpcore.http11: receive_response_body.started request=<Request [b'GET']>
+2026-05-19 19:12:12,335 [DEBUG] httpcore.http11: receive_response_body.complete
+2026-05-19 19:12:12,335 [DEBUG] httpcore.http11: response_closed.started
+2026-05-19 19:12:12,335 [DEBUG] httpcore.http11: response_closed.complete
+2026-05-19 19:12:12,335 [DEBUG] verkada_pass_test_client.bluetooth: Backend returned 3 registered key(s) in 0.92s
+2026-05-19 19:12:12,335 [DEBUG] verkada_pass_test_client.bluetooth: Registered key candidate: fingerprint=7b4723633320b51110e62bd705cc7040c3cccb8787829289f86b4c18fb7ba670 keyType=BLE_UNLOCK_PUBLIC_KEY_ED25519
+2026-05-19 19:12:12,335 [INFO] verkada_pass_test_client.bluetooth: BLE key is already registered with the backend. Skipping registration.
+2026-05-19 19:12:12,335 [INFO] verkada_pass_test_client.bluetooth: Step 3/4: Create GATT server and characteristics
+2026-05-19 19:12:12,335 [INFO] verkada_pass_test_client.bluetooth: Creating BlessServer with name='python-test-client'
+2026-05-19 19:12:12,353 [INFO] verkada_pass_test_client.bluetooth: Adding GATT service 0000FD3A-0000-1000-8000-00805F9B34FB
+2026-05-19 19:12:12,353 [DEBUG] bless.backends.winrt.server: Creating a new service with uuid: 0000FD3A-0000-1000-8000-00805F9B34FB
+2026-05-19 19:12:12,353 [DEBUG] bless.backends.winrt.server: Adding service to server with uuid 0000FD3A-0000-1000-8000-00805F9B34FB
+2026-05-19 19:12:12,403 [INFO] verkada_pass_test_client.bluetooth: Adding characteristic 00002000-0000-1000-8000-00805F9B34FB (read) under service 0000FD3A-0000-1000-8000-00805F9B34FB
+2026-05-19 19:12:12,403 [INFO] verkada_pass_test_client.bluetooth: Adding characteristic 00001001-0000-1000-8000-00805F9B34FB (write_without_response) under service 0000FD3A-0000-1000-8000-00805F9B34FB
+2026-05-19 19:12:12,411 [INFO] verkada_pass_test_client.bluetooth: Adding advertised service 0000A4DD-0000-1000-8000-00805F9B34FB (empty GATT service so bless will advertise this UUID)
+2026-05-19 19:12:12,411 [DEBUG] bless.backends.winrt.server: Creating a new service with uuid: 0000A4DD-0000-1000-8000-00805F9B34FB
+2026-05-19 19:12:12,411 [DEBUG] bless.backends.winrt.server: Adding service to server with uuid 0000A4DD-0000-1000-8000-00805F9B34FB
+2026-05-19 19:12:12,411 [INFO] verkada_pass_test_client.bluetooth: Step 4/4: Start advertising (services=[0000FD3A-0000-1000-8000-00805F9B34FB, 0000A4DD-0000-1000-8000-00805F9B34FB])
+2026-05-19 19:12:12,552 [INFO] verkada_pass_test_client.bluetooth: GATT server started in 0.14s. Waiting for reader connections. Press Ctrl+C to stop.

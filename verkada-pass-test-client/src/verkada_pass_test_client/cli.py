@@ -8,11 +8,15 @@ import sys
 from typing import Sequence
 
 from .bluetooth import (
+    BleDiscoveryResult,
     MODE_BLE_CENTRAL,
     MODE_BLE_PERIPHERAL,
+    MODE_NEARBY_HTTP,
     MODE_REMOTE,
     SUPPORTED_MODES,
     CentralReader,
+    derive_beacon_pair_from_reader_serial,
+    discover_ble_readers,
     run_ble_central_mode,
     run_ble_peripheral_mode,
     validate_mode,
@@ -58,7 +62,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--list-only",
         action="store_true",
-        help="List doors after login and exit without unlocking one. Remote mode only.",
+        help="List doors in remote mode, or print BLE scan diagnostics in ble-central mode, then exit.",
     )
     parser.add_argument(
         "--logout",
@@ -72,7 +76,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--mode",
         choices=SUPPORTED_MODES,
-        help="Choose the operation mode: remote, ble-central, or ble-peripheral.",
+        help="Choose the operation mode: nearby (recommended HTTP unlock), remote, ble-central, or ble-peripheral.",
     )
     parser.add_argument(
         "--ble-user-id",
@@ -98,6 +102,7 @@ def setup_logging(verbose: int, log_file: Path | None) -> None:
     if verbose >= 2:
         console_level = logging.DEBUG
     elif verbose >= 1:
+
         console_level = logging.INFO
     else:
         console_level = logging.WARNING
@@ -171,7 +176,37 @@ def main(argv: Sequence[str] | None = None) -> int:
 
             mode = validate_mode(args.mode or config.mode or choose_mode())
 
-            if mode == MODE_REMOTE:
+            if mode == MODE_NEARBY_HTTP:
+                doors = client.list_doors(session)
+                if not doors:
+                    print("No doors were returned for this account.")
+                    return 0
+
+                print("")
+                print("Available doors:")
+                print_door_list(doors)
+
+                if args.list_only:
+                    return 0
+
+                selected_door = choose_door(doors)
+                try:
+                    result = client.unlock_door(session, selected_door.access_point_id, "nearby")
+                except RuntimeError:
+                    print("")
+                    print("Selected door diagnostics:")
+                    print_door_diagnostics(selected_door)
+                    print("")
+                    print("Remote policy diagnostics:")
+                    print_remote_policy_diagnostics(client, session)
+                    raise
+
+                print("")
+                print(f"Unlocked: {selected_door.name}")
+                print(f"Unlock method: nearby (HTTP)")
+                if result.duration is not None:
+                    print(f"Duration: {result.duration:.2f} seconds")
+            elif mode == MODE_REMOTE:
                 doors = client.list_doors(session)
                 if not doors:
                     print("No doors were returned for this account.")
@@ -203,10 +238,21 @@ def main(argv: Sequence[str] | None = None) -> int:
                 if result.duration is not None:
                     print(f"Duration: {result.duration:.2f} seconds")
             elif mode == MODE_BLE_CENTRAL:
-                if args.list_only:
-                    raise RuntimeError("--list-only is only supported for remote mode.")
-
                 ble_keys_path = resolve_ble_keys_path(config_path, config)
+                discovery = asyncio.run(discover_ble_readers(config=config))
+                if args.list_only:
+                    doors = client.list_doors(session)
+                    print("")
+                    print("Known reader serials from unlockables:")
+                    print_known_reader_serials(doors)
+                    print("")
+                    print("Beacon correlation:")
+                    print_beacon_correlation(doors, discovery)
+                    print("")
+                    print("BLE scan diagnostics:")
+                    print_ble_discovery_summary(discovery)
+                    return 0
+
                 result = asyncio.run(
                     run_ble_central_mode(
                         api_client=client,
@@ -215,6 +261,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                         ble_keys_path=ble_keys_path,
                         choose_reader=choose_reader,
                         override_user_id=args.ble_user_id,
+                        discovery=discovery,
                     )
                 )
 
@@ -344,6 +391,9 @@ def print_door_list(doors: list[DoorRecord]) -> None:
             schedule_states = door.schedule.distinct_states()
             if schedule_states:
                 details.append(f"scheduleStates={'/'.join(schedule_states)}")
+        reader_serials = door.reader_serial_numbers()
+        if reader_serials:
+            details.append(f"readerSerials={'/'.join(reader_serials)}")
         suffix = f" ({', '.join(details)})" if details else ""
         print(f"{index}. {door.name} [{door.access_point_id}]{suffix}")
 
@@ -377,6 +427,82 @@ def print_door_diagnostics(door: DoorRecord) -> None:
         if isinstance(device_ios, list):
             print(f"Device IO entries returned: {len(device_ios)}")
     print("")
+
+
+def print_ble_discovery_summary(discovery: BleDiscoveryResult) -> None:
+    for line in discovery.render_summary_lines():
+        print(line)
+    if discovery.readers:
+        print("Reader candidates:")
+        for index, reader in enumerate(discovery.readers, start=1):
+            details = [reader.address, f"serial={reader.reader_serial}"]
+            if reader.rssi is not None:
+                details.append(f"rssi={reader.rssi}")
+            print(f"{index}. {reader.name} ({', '.join(details)})")
+
+
+def print_known_reader_serials(doors: list[DoorRecord]) -> None:
+    found_any = False
+    for door in doors:
+        serials = door.reader_serial_numbers()
+        if not serials:
+            continue
+        found_any = True
+        predicted_pairs = [
+            f"{serial} -> {pair[0]}/{pair[1]}"
+            for serial in serials
+            for pair in [derive_beacon_pair_from_reader_serial(serial)]
+        ]
+        print(f"- {door.name}: {', '.join(predicted_pairs)}")
+    if not found_any:
+        print("- No reader serials were returned in unlockables.")
+
+
+def print_beacon_correlation(doors: list[DoorRecord], discovery: BleDiscoveryResult) -> None:
+    expected_by_pair: dict[tuple[int, int], tuple[str, str]] = {}
+    for door in doors:
+        for serial in door.reader_serial_numbers():
+            expected_by_pair[derive_beacon_pair_from_reader_serial(serial)] = (door.name, serial)
+
+    observed_pairs: dict[tuple[int, int], list[str]] = {}
+    for observation in discovery.observations:
+        if observation.beacon_major is None or observation.beacon_minor is None:
+            continue
+        pair = (observation.beacon_major, observation.beacon_minor)
+        observed_pairs.setdefault(pair, []).append(observation.address)
+
+    if not expected_by_pair:
+        print("- No reader serials were returned in unlockables, so no beacon correlation is available.")
+        return
+
+    matched_any = False
+    for pair, (door_name, serial) in expected_by_pair.items():
+        addresses = observed_pairs.get(pair)
+        if not addresses:
+            continue
+        matched_any = True
+        unique_addresses = ", ".join(sorted(set(addresses)))
+        print(f"- MATCH {door_name}: {serial} -> {pair[0]}/{pair[1]} @ {unique_addresses}")
+
+    missing_pairs = [
+        (pair, door_name, serial)
+        for pair, (door_name, serial) in expected_by_pair.items()
+        if pair not in observed_pairs
+    ]
+    for pair, door_name, serial in missing_pairs:
+        print(f"- MISSING {door_name}: {serial} -> {pair[0]}/{pair[1]}")
+
+    unexpected_pairs = [
+        (pair, addresses)
+        for pair, addresses in observed_pairs.items()
+        if pair not in expected_by_pair
+    ]
+    for pair, addresses in unexpected_pairs:
+        unique_addresses = ", ".join(sorted(set(addresses)))
+        print(f"- UNKNOWN beacon {pair[0]}/{pair[1]} @ {unique_addresses}")
+
+    if not matched_any and not missing_pairs and not unexpected_pairs:
+        print("- No Verkada beacons were observed.")
 
 
 def print_remote_policy_diagnostics(client: VerkadaPassClient, session: SessionState) -> None:
@@ -420,18 +546,21 @@ def print_remote_policy_diagnostics(client: VerkadaPassClient, session: SessionS
 def choose_mode() -> str:
     print("")
     print("Available modes:")
-    print("1. BLE central nearby unlock")
-    print("2. BLE peripheral hands-free server")
-    print("3. Remote unlock (disabled by policy)")
+    print("1. Nearby HTTP unlock (recommended — POST unlockMethod=nearby, works at this org)")
+    print("2. BLE peripheral hands-free server (auto-unlocks when phone ~1-2cm from reader)")
+    print("3. Remote unlock (disabled by policy — POST unlockMethod=mobile, requires api-unlock-enabled=true)")
+    print("4. BLE central GATT (Apollo/FD3B readers only — NOT for DML readers)")
 
     while True:
         raw_value = prompt_non_empty("Select mode number")
         if raw_value == "1":
-            return MODE_BLE_CENTRAL
+            return MODE_NEARBY_HTTP
         if raw_value == "2":
             return MODE_BLE_PERIPHERAL
         if raw_value == "3":
             return MODE_REMOTE
+        if raw_value == "4":
+            return MODE_BLE_CENTRAL
         print("Mode number is out of range.")
 
 

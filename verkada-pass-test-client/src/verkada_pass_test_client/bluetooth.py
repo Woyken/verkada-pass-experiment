@@ -5,6 +5,7 @@ import base64
 import hashlib
 import hmac
 import logging
+import sys
 import time
 import tomllib
 import uuid
@@ -24,9 +25,10 @@ from .models import SessionState
 logger = logging.getLogger(__name__)
 
 MODE_REMOTE = "remote"
+MODE_NEARBY_HTTP = "nearby"
 MODE_BLE_CENTRAL = "ble-central"
 MODE_BLE_PERIPHERAL = "ble-peripheral"
-SUPPORTED_MODES = (MODE_REMOTE, MODE_BLE_CENTRAL, MODE_BLE_PERIPHERAL)
+SUPPORTED_MODES = (MODE_REMOTE, MODE_NEARBY_HTTP, MODE_BLE_CENTRAL, MODE_BLE_PERIPHERAL)
 
 BLE_READER_SERVICE_UUID = "0000FD3B-0000-1000-8000-00805F9B34FB"
 BLE_PHONE_SERVICE_UUID = "0000FD3A-0000-1000-8000-00805F9B34FB"
@@ -34,6 +36,9 @@ BLE_PHONE_ADVERTISED_SERVICE_UUID = "0000A4DD-0000-1000-8000-00805F9B34FB"
 BLE_PUBLIC_KEY_CHARACTERISTIC_UUID = "00001001-0000-1000-8000-00805F9B34FB"
 BLE_AUTH_CHARACTERISTIC_UUID = "00002000-0000-1000-8000-00805F9B34FB"
 BLE_KEY_TYPE = "BLE_UNLOCK_PUBLIC_KEY_ED25519"
+VERKADA_READER_BEACON_UUID = "ac3ef23c-70d8-4773-97ad-b9a566a0fb40"
+APPLE_COMPANY_ID = 0x004C
+IBEACON_PREFIX = b"\x02\x15"
 
 PERIPHERAL_ERROR_MISSING_USER_ID = 10
 PERIPHERAL_ERROR_REQUEST_VALUE_HAS_WRONG_SIZE = 21
@@ -57,6 +62,15 @@ def _hex_preview(data: bytes, limit: int = 64) -> str:
     if len(data) <= limit:
         return data.hex()
     return f"{data[:limit].hex()}...({len(data)} bytes total)"
+
+
+def looks_like_verkada_reader_serial(value: str) -> bool:
+    if value.startswith("APL"):
+        return True
+    return len(value) == 14 and value.count("-") == 2 and all(
+        character == "-" or character.isdigit() or ("A" <= character <= "Z")
+        for character in value
+    )
 
 
 @dataclass(slots=True)
@@ -115,6 +129,74 @@ class CentralUnlockResult:
     payload_size: int
     created_new_key: bool
     registered_key: bool
+
+
+@dataclass(slots=True)
+class BleScanObservation:
+    address: str
+    name: str | None
+    local_name: str | None
+    service_uuids: list[str]
+    manufacturer_data: dict[int, bytes]
+    rssi: int | None = None
+    reader_serial: str | None = None
+    beacon_uuid: str | None = None
+    beacon_major: int | None = None
+    beacon_minor: int | None = None
+
+    def markers(self) -> list[str]:
+        labels: list[str] = []
+        if BLE_READER_SERVICE_UUID.lower() in self.service_uuids:
+            labels.append("FD3B")
+        if BLE_PHONE_SERVICE_UUID.lower() in self.service_uuids:
+            labels.append("FD3A")
+        if BLE_PHONE_ADVERTISED_SERVICE_UUID.lower() in self.service_uuids:
+            labels.append("A4DD")
+        if self.beacon_uuid == VERKADA_READER_BEACON_UUID:
+            if self.beacon_major is not None and self.beacon_minor is not None:
+                labels.append(f"BEACON={self.beacon_major}/{self.beacon_minor}")
+            else:
+                labels.append("BEACON")
+        if self.reader_serial:
+            labels.append(f"serial={self.reader_serial}")
+        return labels
+
+    def summary(self) -> str:
+        name = self.name or self.local_name or "<unnamed>"
+        rssi = f", rssi={self.rssi}" if self.rssi is not None else ""
+        labels = self.markers()
+        details = f" [{', '.join(labels)}]" if labels else ""
+        return f"- {name} @ {self.address}{rssi}{details}"
+
+
+@dataclass(slots=True)
+class BleDiscoveryResult:
+    source_label: str
+    total_entries: int
+    readers: list[CentralReader]
+    observations: list[BleScanObservation]
+    fd3b_service_count: int
+    fd3a_service_count: int
+    a4dd_service_count: int
+    verkada_beacon_count: int
+    serial_candidate_count: int
+
+    def render_summary_lines(self) -> list[str]:
+        lines = [
+            f"Scan source: {self.source_label}",
+            f"Total advertisements seen: {self.total_entries}",
+            f"FD3B reader-service advertisers: {self.fd3b_service_count}",
+            f"FD3A phone-service advertisers: {self.fd3a_service_count}",
+            f"A4DD phone companion advertisers: {self.a4dd_service_count}",
+            f"Verkada reader beacon hits ({VERKADA_READER_BEACON_UUID}): {self.verkada_beacon_count}",
+            f"Decodable serial candidates: {self.serial_candidate_count}",
+            f"Reader candidates usable by this client: {len(self.readers)}",
+        ]
+        interesting = [item.summary() for item in self.observations[:8]]
+        if interesting:
+            lines.append("Interesting advertisements:")
+            lines.extend(interesting)
+        return lines
 
 
 def validate_mode(value: str) -> str:
@@ -177,21 +259,90 @@ def resolve_ble_user_id(
     return session.user_id
 
 
-def decode_reader_serial(manufacturer_data: dict[int, bytes]) -> str | None:
-    serial_bytes: bytes | None = None
+def decode_reader_serial_from_scan_record_bytes(raw_scan_record: bytes | None) -> str | None:
+    if raw_scan_record is None or len(raw_scan_record) < 23:
+        return None
+    try:
+        decoded = raw_scan_record[9:23].decode("utf-8").strip("\x00").strip()
+    except UnicodeDecodeError:
+        logger.debug("Raw scan record slice is not valid UTF-8: %s", raw_scan_record.hex())
+        return None
+    if looks_like_verkada_reader_serial(decoded):
+        return decoded
+    return None
+
+
+def extract_raw_scan_record_bytes(platform_data: tuple[Any, ...] | Any) -> list[bytes]:
+    if not isinstance(platform_data, tuple) or len(platform_data) < 2:
+        return []
+    raw_data = platform_data[1]
+    result: list[bytes] = []
+    for event_args in (getattr(raw_data, "adv", None), getattr(raw_data, "scan", None)):
+        advertisement = getattr(event_args, "advertisement", None)
+        data_sections = getattr(advertisement, "data_sections", None)
+        if data_sections is None:
+            continue
+        encoded = bytearray()
+        for section in data_sections:
+            payload = bytes(section.data)
+            encoded.append(len(payload) + 1)
+            encoded.append(int(section.data_type))
+            encoded.extend(payload)
+        if encoded:
+            result.append(bytes(encoded))
+    return result
+
+
+def decode_reader_serial(
+    manufacturer_data: dict[int, bytes],
+    raw_scan_records: list[bytes] | None = None,
+) -> str | None:
+    for raw_scan_record in raw_scan_records or ():
+        decoded = decode_reader_serial_from_scan_record_bytes(raw_scan_record)
+        if decoded:
+            return decoded
+    fallback: str | None = None
     for company_id, payload in manufacturer_data.items():
         prefix = bytes((company_id & 0xFF, (company_id >> 8) & 0xFF))
         serial_bytes = prefix + bytes(payload)
+        try:
+            decoded = serial_bytes.decode("utf-8").strip("\x00").strip()
+        except UnicodeDecodeError:
+            logger.debug("Manufacturer data is not valid UTF-8: %s", serial_bytes.hex())
+            continue
+        if not decoded:
+            continue
+        if looks_like_verkada_reader_serial(decoded):
+            return decoded
+        if fallback is None:
+            fallback = decoded
+    return fallback
 
-    if serial_bytes is None:
-        return None
 
-    try:
-        decoded = serial_bytes.decode("utf-8").strip("\x00").strip()
-    except UnicodeDecodeError:
-        logger.debug("Manufacturer data is not valid UTF-8: %s", serial_bytes.hex())
+def decode_verkada_beacon_uuid(manufacturer_data: dict[int, bytes]) -> str | None:
+    decoded = decode_verkada_beacon_details(manufacturer_data)
+    if decoded is None:
         return None
-    return decoded or None
+    return decoded[0]
+
+
+def derive_beacon_pair_from_reader_serial(reader_serial: str) -> tuple[int, int]:
+    digest = hashlib.sha256(reader_serial.encode("utf-8")).hexdigest()
+    return int(digest[0:4], 16), int(digest[4:8], 16)
+
+
+def decode_verkada_beacon_details(manufacturer_data: dict[int, bytes]) -> tuple[str, int, int] | None:
+    for company_id, payload in manufacturer_data.items():
+        data = bytes(payload)
+        if company_id != APPLE_COMPANY_ID or not data.startswith(IBEACON_PREFIX) or len(data) < 18:
+            continue
+        beacon_uuid = str(uuid.UUID(bytes=data[2:18])).lower()
+        if len(data) < 22:
+            return beacon_uuid, 0, 0
+        major = int.from_bytes(data[18:20], byteorder="big")
+        minor = int.from_bytes(data[20:22], byteorder="big")
+        return beacon_uuid, major, minor
+    return None
 
 
 def compute_ble_auth_tag(message: bytes, session_tx_key: bytes) -> bytes:
@@ -278,17 +429,28 @@ def ensure_registered_ble_key(
 
 
 async def _discover_readers(*, config: AppConfig) -> list[CentralReader]:
+    discovery = await discover_ble_readers(config=config)
+    return discovery.readers
+
+
+async def _scan_ble_observations(
+    *,
+    timeout_seconds: float,
+    service_uuids: list[str] | None = None,
+) -> list[tuple[Any, BleScanObservation]]:
     logger.info(
-        "Starting BLE scan for readers exposing service %s (timeout=%.1fs)",
-        BLE_READER_SERVICE_UUID,
-        config.ble_scan_timeout_seconds,
+        "Starting BLE scan%s (timeout=%.1fs)",
+        f" with service filter {service_uuids}" if service_uuids else "",
+        timeout_seconds,
     )
     scan_started = time.perf_counter()
-    discovered = await BleakScanner.discover(
-        timeout=config.ble_scan_timeout_seconds,
-        return_adv=True,
-        service_uuids=[BLE_READER_SERVICE_UUID],
-    )
+    kwargs: dict[str, Any] = {
+        "timeout": timeout_seconds,
+        "return_adv": True,
+    }
+    if service_uuids:
+        kwargs["service_uuids"] = service_uuids
+    discovered = await BleakScanner.discover(**kwargs)
     scan_elapsed = time.perf_counter() - scan_started
     logger.info("BLE scan complete in %.2fs", scan_elapsed)
 
@@ -298,61 +460,159 @@ async def _discover_readers(*, config: AppConfig) -> list[CentralReader]:
         items = list(discovered)
     logger.debug("Scanner returned %d advertising entries", len(items))
 
-    readers: list[CentralReader] = []
+    observations: list[tuple[Any, BleScanObservation]] = []
     for item in items:
         if isinstance(item, tuple):
             device, advertisement = item
         else:
             device, advertisement = item, None
 
-        manufacturer_data = getattr(advertisement, "manufacturer_data", {}) or {}
-        service_uuids = getattr(advertisement, "service_uuids", []) or []
+        manufacturer_data_raw = getattr(advertisement, "manufacturer_data", {}) or {}
+        manufacturer_data = {int(key): bytes(value) for key, value in manufacturer_data_raw.items()}
+        normalized_service_uuids = [str(value).lower() for value in (getattr(advertisement, "service_uuids", []) or [])]
         rssi = getattr(advertisement, "rssi", None)
-        device_address = getattr(device, "address", "<unknown>")
+        raw_scan_records = extract_raw_scan_record_bytes(getattr(advertisement, "platform_data", ()))
+        device_address = str(getattr(device, "address", "<unknown>"))
         device_name = getattr(device, "name", None)
         local_name = getattr(advertisement, "local_name", None)
 
-        logger.debug(
-            "Scanned device: address=%s name=%s local_name=%s rssi=%s services=%s manufacturer_data=%s",
-            device_address,
-            device_name,
-            local_name,
-            rssi,
-            list(service_uuids),
-            {hex(k): v.hex() for k, v in manufacturer_data.items()},
+        beacon_details = decode_verkada_beacon_details(manufacturer_data)
+        observation = BleScanObservation(
+            address=device_address,
+            name=str(device_name) if device_name else None,
+            local_name=str(local_name) if local_name else None,
+            service_uuids=normalized_service_uuids,
+            manufacturer_data=manufacturer_data,
+            rssi=int(rssi) if isinstance(rssi, int) else None,
+            reader_serial=decode_reader_serial(
+                manufacturer_data,
+                raw_scan_records=raw_scan_records,
+            ),
+            beacon_uuid=beacon_details[0] if beacon_details else None,
+            beacon_major=beacon_details[1] if beacon_details else None,
+            beacon_minor=beacon_details[2] if beacon_details else None,
         )
+        logger.debug(
+            "Scanned device: address=%s name=%s local_name=%s rssi=%s services=%s manufacturer_data=%s markers=%s",
+            device_address,
+            observation.name,
+            observation.local_name,
+            observation.rssi,
+            observation.service_uuids,
+            {hex(key): value.hex() for key, value in manufacturer_data.items()},
+            observation.markers(),
+        )
+        observations.append((device, observation))
 
-        reader_serial = decode_reader_serial(manufacturer_data)
-        if not reader_serial:
-            logger.debug("Skipping %s: no decodable reader serial in manufacturer data", device_address)
+    return observations
+
+
+def _build_ble_discovery_result(
+    observations: list[tuple[Any, BleScanObservation]],
+    *,
+    source_label: str,
+) -> BleDiscoveryResult:
+    readers: list[CentralReader] = []
+    fd3b_service_count = 0
+    fd3a_service_count = 0
+    a4dd_service_count = 0
+    verkada_beacon_count = 0
+    serial_candidate_count = 0
+    interesting: list[BleScanObservation] = []
+
+    for device, observation in observations:
+        has_fd3b = BLE_READER_SERVICE_UUID.lower() in observation.service_uuids
+        has_fd3a = BLE_PHONE_SERVICE_UUID.lower() in observation.service_uuids
+        has_a4dd = BLE_PHONE_ADVERTISED_SERVICE_UUID.lower() in observation.service_uuids
+        has_beacon = observation.beacon_uuid == VERKADA_READER_BEACON_UUID
+
+        if has_fd3b:
+            fd3b_service_count += 1
+        if has_fd3a:
+            fd3a_service_count += 1
+        if has_a4dd:
+            a4dd_service_count += 1
+        if has_beacon:
+            verkada_beacon_count += 1
+        if observation.reader_serial:
+            serial_candidate_count += 1
+
+        if has_fd3b or has_fd3a or has_a4dd or has_beacon or observation.reader_serial:
+            interesting.append(observation)
+
+        if not observation.reader_serial:
             continue
 
-        if not reader_serial.startswith("APL"):
+        if not looks_like_verkada_reader_serial(observation.reader_serial) and not has_fd3b:
+            logger.debug(
+                "Ignoring decodable serial candidate %r at %s because it did not match the known Verkada formats and the device did not advertise FD3B.",
+                observation.reader_serial,
+                observation.address,
+            )
+            continue
+
+        if not observation.reader_serial.startswith("APL"):
             logger.info(
-                "Reader %s has serial %s which does not start with 'APL' (Apollo). Including anyway.",
-                device_address,
-                reader_serial,
+                "Candidate %s has a non-APL Verkada-style serial %s but did advertise FD3B. Including anyway.",
+                observation.address,
+                observation.reader_serial,
             )
 
-        reader_name = device_name or local_name or str(device_address)
+        reader_name = observation.name or observation.local_name or observation.address
         readers.append(
             CentralReader(
                 device=device,
-                address=str(device_address),
-                name=str(reader_name),
-                reader_serial=reader_serial,
-                rssi=int(rssi) if isinstance(rssi, int) else None,
+                address=observation.address,
+                name=reader_name,
+                reader_serial=observation.reader_serial,
+                rssi=observation.rssi,
             )
         )
-        logger.info(
-            "Discovered reader: name=%s address=%s serial=%s rssi=%s",
-            reader_name,
-            device_address,
-            reader_serial,
-            rssi,
-        )
 
-    return readers
+    return BleDiscoveryResult(
+        source_label=source_label,
+        total_entries=len(observations),
+        readers=readers,
+        observations=interesting,
+        fd3b_service_count=fd3b_service_count,
+        fd3a_service_count=fd3a_service_count,
+        a4dd_service_count=a4dd_service_count,
+        verkada_beacon_count=verkada_beacon_count,
+        serial_candidate_count=serial_candidate_count,
+    )
+
+
+async def discover_ble_readers(*, config: AppConfig) -> BleDiscoveryResult:
+    filtered_observations = await _scan_ble_observations(
+        timeout_seconds=config.ble_scan_timeout_seconds,
+        service_uuids=[BLE_READER_SERVICE_UUID],
+    )
+    filtered_result = _build_ble_discovery_result(filtered_observations, source_label="FD3B-filtered scan")
+    if filtered_result.readers:
+        logger.info(
+            "FD3B-filtered scan found %d reader candidate(s).",
+            len(filtered_result.readers),
+        )
+        return filtered_result
+
+    logger.warning(
+        "FD3B-filtered scan found no reader candidates. Running unfiltered BLE diagnostics."
+    )
+    unfiltered_observations = await _scan_ble_observations(
+        timeout_seconds=config.ble_scan_timeout_seconds,
+        service_uuids=None,
+    )
+    result = _build_ble_discovery_result(unfiltered_observations, source_label="unfiltered scan")
+    logger.info(
+        "Unfiltered scan summary: fd3b=%d fd3a=%d a4dd=%d beacon=%d serial=%d readers=%d",
+        result.fd3b_service_count,
+        result.fd3a_service_count,
+        result.a4dd_service_count,
+        result.verkada_beacon_count,
+        result.serial_candidate_count,
+        len(result.readers),
+    )
+    return result
 
 
 async def run_ble_central_mode(
@@ -363,6 +623,7 @@ async def run_ble_central_mode(
     ble_keys_path: Path,
     choose_reader: Callable[[list[CentralReader]], CentralReader],
     override_user_id: str | None = None,
+    discovery: BleDiscoveryResult | None = None,
 ) -> CentralUnlockResult:
     logger.info("=== BLE CENTRAL MODE START ===")
     logger.info("Step 1/7: Load or create local BLE key pair")
@@ -377,10 +638,15 @@ async def run_ble_central_mode(
     )
 
     logger.info("Step 3/7: Scan for nearby Verkada readers")
-    readers = await _discover_readers(config=config)
+    if discovery is None:
+        discovery = await discover_ble_readers(config=config)
+    readers = discovery.readers
     if not readers:
         logger.error("No nearby BLE readers exposing service %s were found.", BLE_READER_SERVICE_UUID)
-        raise RuntimeError("No nearby BLE readers exposing the Verkada reader service were found.")
+        raise RuntimeError(
+            "No nearby BLE readers exposing the Verkada reader service were found.\n"
+            + "\n".join(discovery.render_summary_lines())
+        )
 
     logger.info("Step 4/7: Choose a reader from %d candidate(s)", len(readers))
     selected_reader = choose_reader(readers)
@@ -442,13 +708,13 @@ async def run_ble_central_mode(
         )
 
         logger.info(
-            "Step 7/7: Write %d-byte unlock payload to characteristic %s (response=True)",
+            "Step 7/7: Write %d-byte unlock payload to characteristic %s (response=False)",
             len(payload),
             BLE_AUTH_CHARACTERISTIC_UUID,
         )
         logger.debug("Payload bytes: %s", payload.hex())
         write_started = time.perf_counter()
-        await ble_client.write_gatt_char(BLE_AUTH_CHARACTERISTIC_UUID, payload, response=True)
+        await ble_client.write_gatt_char(BLE_AUTH_CHARACTERISTIC_UUID, payload, response=False)
         logger.info(
             "Write completed in %.2fs. Disconnecting...",
             time.perf_counter() - write_started,
@@ -655,17 +921,26 @@ class PeripheralBleServer:
             GATTAttributePermissions.writeable,
         )
 
-        logger.info(
-            "Adding advertised service %s (empty GATT service so bless will advertise this UUID)",
-            BLE_PHONE_ADVERTISED_SERVICE_UUID,
-        )
-        await server.add_new_service(BLE_PHONE_ADVERTISED_SERVICE_UUID)
+        advertise_service_uuids = [BLE_PHONE_SERVICE_UUID]
+        if sys.platform == "win32":
+            logger.warning(
+                "Skipping extra advertised service %s on Windows. Bless/WinRT advertises services "
+                "separately, while the APK advertises FD3A+A4DD together; advertising only FD3A "
+                "gives the live reader test the best chance of seeing a single connectable GATT service.",
+                BLE_PHONE_ADVERTISED_SERVICE_UUID,
+            )
+        else:
+            logger.info(
+                "Adding advertised service %s (empty GATT service so bless will advertise this UUID)",
+                BLE_PHONE_ADVERTISED_SERVICE_UUID,
+            )
+            await server.add_new_service(BLE_PHONE_ADVERTISED_SERVICE_UUID)
+            advertise_service_uuids.append(BLE_PHONE_ADVERTISED_SERVICE_UUID)
 
         self._server = server
         logger.info(
-            "Step 4/4: Start advertising (services=[%s, %s])",
-            BLE_PHONE_SERVICE_UUID,
-            BLE_PHONE_ADVERTISED_SERVICE_UUID,
+            "Step 4/4: Start advertising (services=%s)",
+            advertise_service_uuids,
         )
         start_started = time.perf_counter()
         await server.start()

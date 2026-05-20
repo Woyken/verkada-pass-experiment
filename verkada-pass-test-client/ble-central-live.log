@@ -1,0 +1,809 @@
+2026-05-19 19:11:00,807 [DEBUG] asyncio: Using proactor: IocpProactor
+2026-05-19 19:11:00,809 [INFO] verkada_pass_test_client.bluetooth: Starting BLE scan with service filter ['0000FD3B-0000-1000-8000-00805F9B34FB'] (timeout=10.0s)
+2026-05-19 19:11:01,171 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:01,204 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:01,204 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:01,204 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:01,204 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:01,213 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:01,387 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:01,387 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:01,387 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:01,397 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:01,397 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:01,503 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:01,511 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: System A/C.
+2026-05-19 19:11:01,520 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:01,520 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:01,527 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:01,527 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:01,632 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:01,862 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:01,862 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:01,870 [DEBUG] bleak.backends.winrt.scanner: Received 03:D4:F1:2B:0B:A8: .
+2026-05-19 19:11:01,870 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:01,877 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:01,886 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:01,891 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:01,895 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:01,895 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:01,902 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:01,908 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:01,976 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:02,091 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:02,091 [DEBUG] bleak.backends.winrt.scanner: Received F0:1A:A0:A5:DC:FA: .
+2026-05-19 19:11:02,100 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:02,108 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:02,108 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:02,108 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:02,116 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:02,120 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:02,124 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:02,215 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:02,220 [DEBUG] bleak.backends.winrt.scanner: Received 05:3B:8E:6C:CD:1B: .
+2026-05-19 19:11:02,231 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:02,231 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:02,445 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:02,445 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:02,461 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:02,461 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:02,469 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:02,478 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:02,478 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:02,486 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:02,486 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:02,568 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:02,569 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:02,576 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:02,701 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:02,706 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:02,714 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:02,714 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:02,722 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:02,810 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:02,911 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:02,921 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:02,927 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:02,927 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:02,982 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:02,984 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:02,984 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:03,158 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:03,158 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:03,167 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:25:51: .
+2026-05-19 19:11:03,174 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:25:51: System A/C.
+2026-05-19 19:11:03,174 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:03,286 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:03,289 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:03,289 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:03,298 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:03,309 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:03,313 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: System A/C.
+2026-05-19 19:11:03,402 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:03,402 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:03,414 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:03,417 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:03,417 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:03,423 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:03,508 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:03,516 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:03,524 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:03,524 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:03,631 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:03,642 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:03,647 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:03,647 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:03,656 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:03,656 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:03,867 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:25:51: .
+2026-05-19 19:11:03,881 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:03,884 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:03,887 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:03,887 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: System A/C.
+2026-05-19 19:11:03,892 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:03,892 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:03,904 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:03,985 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:03,991 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: System A/C.
+2026-05-19 19:11:03,991 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:04,000 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:04,006 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:04,011 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:04,016 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:04,016 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:04,024 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:04,024 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:04,098 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:04,098 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:21:1D: .
+2026-05-19 19:11:04,106 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:04,114 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:04,114 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:04,122 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:04,124 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:04,130 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:04,130 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:04,138 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:04,138 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:04,278 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:04,283 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:04,343 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:04,345 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:04,345 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:04,361 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:04,370 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:04,370 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:04,452 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:04,470 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:04,485 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:04,485 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: System A/C.
+2026-05-19 19:11:04,692 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:04,700 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:04,709 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:04,715 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:04,717 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:04,810 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:04,816 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:04,938 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:05,056 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:05,059 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:05,062 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:05,071 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:05,071 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:05,079 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:05,163 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:05,171 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:05,171 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:05,179 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: System A/C.
+2026-05-19 19:11:05,187 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:05,187 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:05,187 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:05,286 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:05,290 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:05,295 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:05,303 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:05,304 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:05,311 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:05,401 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:05,401 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: System A/C.
+2026-05-19 19:11:05,410 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:05,418 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:05,418 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:05,418 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:05,541 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:05,541 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:05,549 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:05,550 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: System A/C.
+2026-05-19 19:11:05,556 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:05,557 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:05,557 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:05,642 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:25:51: .
+2026-05-19 19:11:05,649 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:05,657 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:05,666 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:05,757 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:05,765 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:05,765 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:05,773 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:05,875 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:05,878 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:05,888 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:05,896 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:05,987 [DEBUG] bleak.backends.winrt.scanner: Received 1C:41:C5:9C:42:BD: .
+2026-05-19 19:11:05,994 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:05,994 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:06,002 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:25:51: .
+2026-05-19 19:11:06,002 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:25:51: System A/C.
+2026-05-19 19:11:06,011 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:06,011 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:06,019 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:06,027 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:06,109 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:06,128 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:06,223 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:06,248 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:06,248 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:06,248 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:06,260 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:06,263 [DEBUG] bleak.backends.winrt.scanner: Received 1C:41:C5:9C:42:BD: .
+2026-05-19 19:11:06,353 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:06,373 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:06,375 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:06,380 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:06,381 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:06,466 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:06,471 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:06,477 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:06,486 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:06,490 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:06,497 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:06,502 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:06,508 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:06,512 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:06,514 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:06,718 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:06,718 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:06,735 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:06,739 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:06,743 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:06,745 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:06,822 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:06,829 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:06,836 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:06,843 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:06,848 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:06,848 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:06,950 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:06,955 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:06,957 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:06,962 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:06,962 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:07,060 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:07,063 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:07,068 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:07,068 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:07,081 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:07,085 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:07,089 [DEBUG] bleak.backends.winrt.scanner: Received 1C:41:C5:9C:42:BD: .
+2026-05-19 19:11:07,168 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:07,174 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:07,190 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:07,199 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:07,199 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:07,305 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:07,313 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:07,417 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:07,421 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:07,461 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:07,461 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:07,531 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:07,539 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:07,543 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:07,551 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: System A/C.
+2026-05-19 19:11:07,559 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:07,559 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:07,567 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:07,567 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:07,578 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:07,660 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:BF:6C:D4: .
+2026-05-19 19:11:07,663 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:07,665 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:07,670 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:07,675 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:07,679 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:07,684 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:07,777 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:07,782 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:07,787 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:07,887 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:07,892 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:07,896 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:08,004 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:08,115 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:08,131 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:08,140 [DEBUG] bleak.backends.winrt.scanner: Received 94:02:30:1C:53:9F: Camera.
+2026-05-19 19:11:08,151 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:08,153 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:08,156 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:08,156 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:08,164 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:08,173 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:08,237 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:08,242 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:08,242 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:08,254 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:08,263 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:08,270 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:08,274 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:08,278 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:08,475 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:08,483 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:08,492 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:08,606 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:08,606 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:08,615 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:08,615 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:08,615 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:08,739 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:08,739 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:08,747 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:08,755 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:08,764 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:08,772 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:08,780 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:08,837 [DEBUG] bleak.backends.winrt.scanner: Received 05:3B:8E:6C:CD:1B: .
+2026-05-19 19:11:08,857 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:08,943 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:08,967 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:08,973 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:08,979 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:08,985 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:08,989 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:08,993 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:08,996 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:08,999 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:09,083 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:09,182 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:09,182 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:09,199 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:09,199 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:09,207 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:09,298 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:09,314 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:09,444 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:09,451 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: System A/C.
+2026-05-19 19:11:09,537 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:09,540 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:09,554 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:09,556 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:09,558 [DEBUG] bleak.backends.winrt.scanner: Received 1C:41:C5:9C:42:BD: .
+2026-05-19 19:11:09,563 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:09,667 [DEBUG] bleak.backends.winrt.scanner: Received 05:3B:8E:6C:CD:1B: .
+2026-05-19 19:11:09,667 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:09,675 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:09,681 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:09,790 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:09,907 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:09,907 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:09,913 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:09,917 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:09,921 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:09,931 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:09,937 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:10,019 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:10,022 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:10,027 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:10,035 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:10,144 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:10,147 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:10,244 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:10,247 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:10,265 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:10,268 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:10,357 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:10,357 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:10,376 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:10,485 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:10,491 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:10,492 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:10,498 [DEBUG] bleak.backends.winrt.scanner: Received 05:3B:8E:6C:CD:1B: .
+2026-05-19 19:11:10,503 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:10,607 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:10,609 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:10,614 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:10,614 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:10,618 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:10,627 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:10,631 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:10,650 [DEBUG] bleak.backends.winrt.scanner: Received 1C:41:C5:9C:42:BD: .
+2026-05-19 19:11:10,661 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:10,727 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:10,730 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:10,734 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:10,738 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:10,840 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:10,844 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:10,846 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:10,854 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:10,862 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:10,870 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:10,878 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:10,878 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:10,886 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:10,954 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:11,083 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:11,089 [DEBUG] bleak.backends.winrt.scanner: 0 devices found. Watcher status: <BluetoothLEAdvertisementWatcherStatus.STOPPED: 3>.
+2026-05-19 19:11:11,090 [INFO] verkada_pass_test_client.bluetooth: BLE scan complete in 10.28s
+2026-05-19 19:11:11,090 [DEBUG] verkada_pass_test_client.bluetooth: Scanner returned 0 advertising entries
+2026-05-19 19:11:11,090 [WARNING] verkada_pass_test_client.bluetooth: FD3B-filtered scan found no reader candidates. Running unfiltered BLE diagnostics.
+2026-05-19 19:11:11,090 [INFO] verkada_pass_test_client.bluetooth: Starting BLE scan (timeout=10.0s)
+2026-05-19 19:11:11,123 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:11,138 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:11,138 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:11,147 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:11,244 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:11,252 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:11,252 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:11,294 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:11,359 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:11,368 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:11,376 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:11,376 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:11,376 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:11,483 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:11,483 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:11,491 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:11,491 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:11,499 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:11,499 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:11,509 [DEBUG] bleak.backends.winrt.scanner: Received 1C:41:C5:9C:42:BD: .
+2026-05-19 19:11:11,513 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:11,613 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:11,613 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:11,621 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:11,622 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:11,728 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:11,737 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:11,739 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:11,743 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:11,746 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:11,837 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:11,844 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:11,860 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:11,873 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:11,877 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:11,879 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:11,885 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:11,885 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:11,950 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:11,966 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:1E:1B: .
+2026-05-19 19:11:11,967 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:11,983 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:11,983 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:12,075 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:12,196 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:12,196 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:12,196 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:12,304 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:12,322 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:12,332 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:12,336 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:12,424 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:12,425 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:12,433 [DEBUG] bleak.backends.winrt.scanner: Received 63:13:13:E1:07:E9: .
+2026-05-19 19:11:12,573 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:12,584 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:12,593 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:12,596 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:12,601 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:12,605 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:12,608 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:12,664 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:12,664 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:12,672 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:12,785 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:12,785 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:12,794 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:12,794 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:12,802 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:12,802 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:12,802 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:12,892 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:13,130 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:25:51: .
+2026-05-19 19:11:13,243 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:13,251 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:13,259 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:13,259 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:13,267 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:13,367 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:13,367 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:13,375 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:13,375 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:13,384 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:13,384 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:13,394 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:13,394 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:13,403 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:13,498 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:13,501 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:13,505 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:13,509 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:13,509 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:13,613 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:13,625 [DEBUG] bleak.backends.winrt.scanner: Received 03:D4:F1:2B:0B:A8: .
+2026-05-19 19:11:13,630 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:13,631 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:13,731 [DEBUG] bleak.backends.winrt.scanner: Received 03:D4:F1:2B:0B:A8: .
+2026-05-19 19:11:13,740 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:13,740 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:13,745 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:13,745 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:13,876 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:13,961 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:13,965 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:13,968 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:13,971 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:13,975 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:13,981 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:13,990 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:13,996 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:14,194 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:14,202 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:14,202 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:14,211 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:14,308 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:14,322 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:14,327 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:14,333 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:14,340 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:14,431 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:14,441 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:14,447 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:14,453 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:14,457 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:14,463 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:14,553 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:14,559 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:14,567 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:14,567 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:25:51: .
+2026-05-19 19:11:14,575 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:25:51: System A/C.
+2026-05-19 19:11:14,575 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:14,666 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:14,674 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:14,797 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:14,805 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:14,814 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:14,906 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:14,906 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:15,026 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:15,042 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:15,152 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:15,152 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:15,163 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:15,266 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:15,268 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:15,277 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:25:51: .
+2026-05-19 19:11:15,384 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:15,388 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:15,392 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:15,399 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:15,405 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:15,413 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:15,519 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:15,523 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:15,527 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:15,616 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:15,616 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:15,622 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:15,624 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:15,638 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:15,642 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:15,648 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:15,652 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:15,738 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:15,772 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:15,777 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:15,787 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:15,787 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:15,795 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:15,850 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:15,853 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:15,862 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:15,866 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:15,871 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:15,875 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:15,877 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:15,886 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:15,966 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:15,966 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:15,987 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:15,993 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:15,999 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:16,000 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:16,089 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:16,093 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: System A/C.
+2026-05-19 19:11:16,113 [DEBUG] bleak.backends.winrt.scanner: Received 5C:14:5B:FB:CF:C8: .
+2026-05-19 19:11:16,118 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:16,118 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: System A/C.
+2026-05-19 19:11:16,202 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:16,220 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:16,220 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:16,336 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:16,343 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:16,456 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:16,459 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:16,461 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:16,557 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:16,560 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:16,589 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:1E:1B: .
+2026-05-19 19:11:16,807 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:16,817 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:16,823 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:16,919 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:16,938 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:17,059 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:17,065 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:17,065 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:17,071 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:17,076 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:17,081 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:17,085 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:17,162 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:17,393 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:17,401 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:17,512 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:17,515 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:17,515 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:17,532 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:17,539 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:17,620 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:17,628 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:17,633 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:17,637 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:17,645 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:17,652 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:21:1D: .
+2026-05-19 19:11:17,744 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:17,747 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:17,750 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:17,858 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:17,865 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:17,869 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:17,874 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:17,879 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:17,883 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:17,887 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:17,891 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:17,986 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:17,992 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:17,997 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:18,000 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:18,003 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:18,094 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:18,100 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:18,108 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:18,114 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:18,118 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:18,125 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:18,128 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:18,133 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:18,141 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:18,215 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:18,215 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:18,233 [DEBUG] bleak.backends.winrt.scanner: Received 55:7D:6F:B1:E9:56: .
+2026-05-19 19:11:18,235 [DEBUG] bleak.backends.winrt.scanner: Received 55:7D:6F:B1:E9:56: .
+2026-05-19 19:11:18,244 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:18,251 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:18,255 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:18,263 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:18,346 [DEBUG] bleak.backends.winrt.scanner: Received 55:7D:6F:B1:E9:56: .
+2026-05-19 19:11:18,353 [DEBUG] bleak.backends.winrt.scanner: Received 55:7D:6F:B1:E9:56: .
+2026-05-19 19:11:18,567 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:18,572 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:18,587 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:18,589 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:18,594 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:18,597 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:18,686 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:18,696 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:18,696 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:18,696 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:18,707 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:18,712 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: System A/C.
+2026-05-19 19:11:18,717 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:18,808 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:18,824 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:18,921 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:18,926 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:18,931 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:18,942 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:19,044 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:19,046 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:19,161 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:19,169 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:19,175 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:19,178 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:19,188 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:19,189 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:19,275 [DEBUG] bleak.backends.winrt.scanner: Received 03:D4:F1:2B:0B:A8: .
+2026-05-19 19:11:19,281 [DEBUG] bleak.backends.winrt.scanner: Received 7C:AE:E5:C6:79:C3: .
+2026-05-19 19:11:19,284 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:19,294 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:19,398 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:19,534 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:19,540 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:19,544 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:19,548 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:19,640 [DEBUG] bleak.backends.winrt.scanner: Received 03:7D:F0:D2:DF:80: .
+2026-05-19 19:11:19,651 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:19,656 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:19,751 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:19,758 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:19,767 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:19,775 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:19,780 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:19,873 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:19,878 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: System A/C.
+2026-05-19 19:11:19,882 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:19,882 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:19,892 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:25:51: .
+2026-05-19 19:11:19,898 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D0:25:51: System A/C.
+2026-05-19 19:11:19,903 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:19,906 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:19,911 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:19,979 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:19,987 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:19,996 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:20,106 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:20,109 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:20,117 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:20,123 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:20,222 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:20,272 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:20,278 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:20,347 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:44:A3:A7: .
+2026-05-19 19:11:20,352 [DEBUG] bleak.backends.winrt.scanner: Received 00:BD:97:AF:13:0B: .
+2026-05-19 19:11:20,353 [DEBUG] bleak.backends.winrt.scanner: Received 01:CD:C2:94:D0:24: .
+2026-05-19 19:11:20,353 [DEBUG] bleak.backends.winrt.scanner: Received 55:7D:6F:B1:E9:56: .
+2026-05-19 19:11:20,363 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:20,370 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:20,372 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:20,459 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:20,467 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:20,478 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:20,486 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:20,577 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:20,584 [DEBUG] bleak.backends.winrt.scanner: Received 2F:7E:2E:B1:D8:BA: .
+2026-05-19 19:11:20,593 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: .
+2026-05-19 19:11:20,598 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:4E:1E: System A/C.
+2026-05-19 19:11:20,696 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:20,704 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:20,706 [DEBUG] bleak.backends.winrt.scanner: Received 01:6B:A6:8A:A0:9C: .
+2026-05-19 19:11:20,715 [DEBUG] bleak.backends.winrt.scanner: Received 29:9E:35:13:79:24: .
+2026-05-19 19:11:20,836 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:50:AC: .
+2026-05-19 19:11:20,940 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:20,941 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:20,953 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: .
+2026-05-19 19:11:20,953 [DEBUG] bleak.backends.winrt.scanner: Received A4:57:A0:81:47:93: System A/C.
+2026-05-19 19:11:21,047 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:21,066 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:21,066 [DEBUG] bleak.backends.winrt.scanner: Received 35:25:FE:2F:E5:8B: .
+2026-05-19 19:11:21,076 [DEBUG] bleak.backends.winrt.scanner: Received 0D:88:4B:D9:6C:7B: .
+2026-05-19 19:11:21,080 [DEBUG] bleak.backends.winrt.scanner: Received 28:6B:B4:D3:35:9F: .
+2026-05-19 19:11:21,129 [DEBUG] bleak.backends.winrt.scanner: 22 devices found. Watcher status: <BluetoothLEAdvertisementWatcherStatus.STOPPED: 3>.
+2026-05-19 19:11:21,131 [INFO] verkada_pass_test_client.bluetooth: BLE scan complete in 10.04s
+2026-05-19 19:11:21,131 [DEBUG] verkada_pass_test_client.bluetooth: Scanner returned 22 advertising entries
+2026-05-19 19:11:21,133 [DEBUG] verkada_pass_test_client.bluetooth: Manufacturer data is not valid UTF-8: 060034f0008706dcf29e2664449f28d9185b018e47066f
+2026-05-19 19:11:21,133 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=01:CD:C2:94:D0:24 name=None local_name=None rssi=-81 services=[] manufacturer_data={'0x6': '34f0008706dcf29e2664449f28d9185b018e47066f'} markers=[]
+2026-05-19 19:11:21,133 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=A4:57:A0:81:50:AC name=System A/C local_name=System A/C rssi=-83 services=[] manufacturer_data={'0x75': '3337314d04020c08'} markers=['serial=u\x00371M\x04\x02\x0c\x08']
+2026-05-19 19:11:21,133 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=28:6B:B4:D3:35:9F name=System A/C local_name=System A/C rssi=-83 services=[] manufacturer_data={'0x75': '3132395804020c08'} markers=['serial=u\x00129X\x04\x02\x0c\x08']
+2026-05-19 19:11:21,133 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=5C:14:5B:FB:CF:C8 name=None local_name=None rssi=-81 services=['0000fd3a-0000-1000-8000-00805f9b34fb', '0000a4dd-0000-1000-8000-00805f9b34fb'] manufacturer_data={} markers=['FD3A', 'A4DD']
+2026-05-19 19:11:21,133 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=A4:57:A0:81:47:93 name=System A/C local_name=System A/C rssi=-84 services=[] manufacturer_data={'0x75': '3337344a04020c08'} markers=['serial=u\x00374J\x04\x02\x0c\x08']
+2026-05-19 19:11:21,133 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=00:BD:97:AF:13:0B name=None local_name=None rssi=-76 services=[] manufacturer_data={} markers=[]
+2026-05-19 19:11:21,133 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=1C:41:C5:9C:42:BD name=None local_name=None rssi=-78 services=[] manufacturer_data={} markers=[]
+2026-05-19 19:11:21,133 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=A4:57:A0:81:4E:1E name=System A/C local_name=System A/C rssi=-80 services=[] manufacturer_data={'0x75': '3231354804020c08'} markers=['serial=u\x00215H\x04\x02\x0c\x08']
+2026-05-19 19:11:21,133 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=A4:57:A0:44:A3:A7 name=System A/C local_name=System A/C rssi=-86 services=[] manufacturer_data={'0x75': '3034394204020c08'} markers=['serial=u\x00049B\x04\x02\x0c\x08']
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Manufacturer data is not valid UTF-8: 0600010920227ecae1b8515a566360dcb8bcb2200504449dc5c6afea60
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=29:9E:35:13:79:24 name=None local_name=None rssi=-81 services=[] manufacturer_data={'0x6': '010920227ecae1b8515a566360dcb8bcb2200504449dc5c6afea60'} markers=[]
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Manufacturer data is not valid UTF-8: 7500421f600080
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=28:6B:B4:D0:1E:1B name=None local_name=None rssi=-90 services=[] manufacturer_data={'0x75': '421f600080'} markers=[]
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Manufacturer data is not valid UTF-8: 060001092022b4fc5f6e6906c0bc4b840ce99ec1d7705d8435597a48bc
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=0D:88:4B:D9:6C:7B name=None local_name=None rssi=-79 services=[] manufacturer_data={'0x6': '01092022b4fc5f6e6906c0bc4b840ce99ec1d7705d8435597a48bc'} markers=[]
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Manufacturer data is not valid UTF-8: 060034f0000f027fee0b52fe44a5dbada504badf435879
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=7C:AE:E5:C6:79:C3 name=None local_name=None rssi=-80 services=[] manufacturer_data={'0x6': '34f0000f027fee0b52fe44a5dbada504badf435879'} markers=[]
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Manufacturer data is not valid UTF-8: 4c000215ac3ef23c70d8477397adb9a566a0fb40c2dea3b2b5
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=03:7D:F0:D2:DF:80 name=None local_name=None rssi=-78 services=[] manufacturer_data={'0x4c': '0215ac3ef23c70d8477397adb9a566a0fb40c2dea3b2b5'} markers=['BEACON=49886/41906']
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Manufacturer data is not valid UTF-8: 060001092022e3dae6b02a80f95133078aaa7f54d963d47d47d9fee490
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=01:6B:A6:8A:A0:9C name=None local_name=None rssi=-76 services=[] manufacturer_data={'0x6': '01092022e3dae6b02a80f95133078aaa7f54d963d47d47d9fee490'} markers=[]
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=35:25:FE:2F:E5:8B name=None local_name=None rssi=-87 services=[] manufacturer_data={} markers=[]
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=63:13:13:E1:07:E9 name=None local_name=None rssi=-75 services=[] manufacturer_data={} markers=[]
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=28:6B:B4:D0:25:51 name=System A/C local_name=System A/C rssi=-87 services=[] manufacturer_data={'0x75': '3132374d04020c08'} markers=['serial=u\x00127M\x04\x02\x0c\x08']
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Manufacturer data is not valid UTF-8: 4c000215ac3ef23c70d8477397adb9a566a0fb4044d467d6b5
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=2F:7E:2E:B1:D8:BA name=None local_name=None rssi=-81 services=[] manufacturer_data={'0x4c': '0215ac3ef23c70d8477397adb9a566a0fb4044d467d6b5'} markers=['BEACON=17620/26582']
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Manufacturer data is not valid UTF-8: 0600010920220243965c9c28df5be63a9e13f411e26e33dbb754a90685
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=03:D4:F1:2B:0B:A8 name=None local_name=None rssi=-88 services=[] manufacturer_data={'0x6': '010920220243965c9c28df5be63a9e13f411e26e33dbb754a90685'} markers=[]
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Manufacturer data is not valid UTF-8: 7500420c83615d30414a54415344000401286bb4d0211d0a0204
+2026-05-19 19:11:21,137 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=28:6B:B4:D0:21:1D name=None local_name=None rssi=-92 services=[] manufacturer_data={'0x75': '420c83615d30414a54415344000401286bb4d0211d0a0204'} markers=[]
+2026-05-19 19:11:21,143 [DEBUG] verkada_pass_test_client.bluetooth: Scanned device: address=55:7D:6F:B1:E9:56 name=None local_name=None rssi=-82 services=['0000fd3a-0000-1000-8000-00805f9b34fb', '0000a4dd-0000-1000-8000-00805f9b34fb'] manufacturer_data={} markers=['FD3A', 'A4DD']
+2026-05-19 19:11:21,143 [DEBUG] verkada_pass_test_client.bluetooth: Ignoring decodable manufacturer string 'u\x00371M\x04\x02\x0c\x08' at A4:57:A0:81:50:AC because it is not Apollo-style and the device did not advertise FD3B.
+2026-05-19 19:11:21,143 [DEBUG] verkada_pass_test_client.bluetooth: Ignoring decodable manufacturer string 'u\x00129X\x04\x02\x0c\x08' at 28:6B:B4:D3:35:9F because it is not Apollo-style and the device did not advertise FD3B.
+2026-05-19 19:11:21,143 [DEBUG] verkada_pass_test_client.bluetooth: Ignoring decodable manufacturer string 'u\x00374J\x04\x02\x0c\x08' at A4:57:A0:81:47:93 because it is not Apollo-style and the device did not advertise FD3B.
+2026-05-19 19:11:21,143 [DEBUG] verkada_pass_test_client.bluetooth: Ignoring decodable manufacturer string 'u\x00215H\x04\x02\x0c\x08' at A4:57:A0:81:4E:1E because it is not Apollo-style and the device did not advertise FD3B.
+2026-05-19 19:11:21,145 [DEBUG] verkada_pass_test_client.bluetooth: Ignoring decodable manufacturer string 'u\x00049B\x04\x02\x0c\x08' at A4:57:A0:44:A3:A7 because it is not Apollo-style and the device did not advertise FD3B.
+2026-05-19 19:11:21,145 [DEBUG] verkada_pass_test_client.bluetooth: Ignoring decodable manufacturer string 'u\x00127M\x04\x02\x0c\x08' at 28:6B:B4:D0:25:51 because it is not Apollo-style and the device did not advertise FD3B.
+2026-05-19 19:11:21,145 [INFO] verkada_pass_test_client.bluetooth: Unfiltered scan summary: fd3b=0 fd3a=2 a4dd=2 beacon=2 serial=6 readers=0
+2026-05-19 19:11:21,145 [DEBUG] httpcore.connection: connect_tcp.started host='vcerberus.command.verkada.com' port=443 local_address=None timeout=30.0 socket_options=None
+2026-05-19 19:11:21,498 [DEBUG] httpcore.connection: connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000269FF11B690>
+2026-05-19 19:11:21,498 [DEBUG] httpcore.connection: start_tls.started ssl_context=<ssl.SSLContext object at 0x00000269FCDEE9F0> server_hostname='vcerberus.command.verkada.com' timeout=30.0
+2026-05-19 19:11:21,972 [DEBUG] httpcore.connection: start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000269FCEB5850>
+2026-05-19 19:11:21,972 [DEBUG] httpcore.http11: send_request_headers.started request=<Request [b'POST']>
+2026-05-19 19:11:21,972 [DEBUG] httpcore.http11: send_request_headers.complete
+2026-05-19 19:11:21,972 [DEBUG] httpcore.http11: send_request_body.started request=<Request [b'POST']>
+2026-05-19 19:11:21,972 [DEBUG] httpcore.http11: send_request_body.complete
+2026-05-19 19:11:21,972 [DEBUG] httpcore.http11: receive_response_headers.started request=<Request [b'POST']>
+2026-05-19 19:11:22,548 [DEBUG] httpcore.http11: receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'content-encoding', b'gzip'), (b'content-length', b'1957'), (b'content-type', b'application/json'), (b'date', b'Tue, 19 May 2026 16:11:22 GMT'), (b'server', b'istio-envoy'), (b'vary', b'Accept-Encoding'), (b'x-envoy-upstream-service-time', b'358'), (b'cross-origin-resource-policy', b'cross-origin')])
+2026-05-19 19:11:22,550 [INFO] httpx: HTTP Request: POST https://vcerberus.command.verkada.com/access/v2/user/pass/unlockables/1 "HTTP/1.1 200 OK"
+2026-05-19 19:11:22,550 [DEBUG] httpcore.http11: receive_response_body.started request=<Request [b'POST']>
+2026-05-19 19:11:22,553 [DEBUG] httpcore.http11: receive_response_body.complete
+2026-05-19 19:11:22,553 [DEBUG] httpcore.http11: response_closed.started
+2026-05-19 19:11:22,553 [DEBUG] httpcore.http11: response_closed.complete
+2026-05-19 19:11:22,553 [DEBUG] httpcore.connection: close.started
+2026-05-19 19:11:22,559 [DEBUG] httpcore.connection: close.complete

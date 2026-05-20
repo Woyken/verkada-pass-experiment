@@ -54,3 +54,17 @@ class DoorModelsTest(unittest.TestCase):
         self.assertEqual(door.access_point_id, "door-123")
         self.assertIs(door.schedule, schedule)
 
+    def test_door_record_reader_serial_numbers(self) -> None:
+        door = DoorRecord.from_api(
+            {
+                "doorId": "door-123",
+                "name": "Front Door",
+                "readerPeripherals": [
+                    {"serialNumber": "DMLD-HT99-NT7H"},
+                    {"serialNumber": "DMLD-HT99-NT7H"},
+                    {"serialNumber": "DMLX-PHHJ-EX9L"},
+                ],
+            }
+        )
+
+        self.assertEqual(door.reader_serial_numbers(), ["DMLD-HT99-NT7H", "DMLX-PHHJ-EX9L"])
