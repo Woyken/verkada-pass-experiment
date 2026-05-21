@@ -97,10 +97,7 @@ class VerkadaApi {
     suspend fun listDoors(session: SessionData): Result<List<DoorItem>> = withContext(Dispatchers.IO) {
         runCatching {
             val body = """{"organizationId":"${session.organizationId}"}"""
-            val headers = mapOf(
-                "x-verkada-token" to session.userToken,
-                "x-verkada-organization-id" to session.organizationId,
-            )
+            val headers = session.authHeaders()
             val responseBody = post(ACCESS_POINTS_URL, body, headers)
             val obj = json.parseToJsonElement(responseBody).jsonObject
             val unlockables = obj["unlockables"]?.jsonObject ?: obj["accessPoints"]?.jsonObject
@@ -122,10 +119,7 @@ class VerkadaApi {
         runCatching {
             val url = String.format(UNLOCK_URL_TEMPLATE, accessPointId)
             val body = """{"unlockMethod":"nearby"}"""
-            val headers = mapOf(
-                "x-verkada-token" to session.userToken,
-                "x-verkada-organization-id" to session.organizationId,
-            )
+            val headers = session.authHeaders()
             val responseBody = post(url, body, headers)
             val obj = json.parseToJsonElement(responseBody).jsonObject
             UnlockResult(

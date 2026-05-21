@@ -10,7 +10,13 @@ data class SessionData(
     val email: String,
     val orgShortName: String = "",
     val shardDomain: String = "",
-)
+) {
+    fun authHeaders(): Map<String, String> = mapOf(
+        "X-Verkada-Auth" to userToken,
+        "X-Verkada-Organization-Id" to organizationId,
+        "X-Verkada-User-Id" to userId,
+    )
+}
 
 @Serializable
 data class DoorItem(
