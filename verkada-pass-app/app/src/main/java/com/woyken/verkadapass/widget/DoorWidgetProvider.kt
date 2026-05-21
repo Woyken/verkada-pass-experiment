@@ -51,7 +51,8 @@ class DoorWidgetProvider : AppWidgetProvider() {
             val doorName = getDoorName(context, widgetId) ?: "No Door"
             val views = RemoteViews(context.packageName, R.layout.widget_door)
             views.setTextViewText(R.id.widget_door_name, doorName)
-            views.setTextViewText(R.id.widget_status, "Tap to unlock")
+            views.setViewVisibility(R.id.widget_status, android.view.View.GONE)
+            views.setImageViewResource(R.id.widget_unlock_icon, android.R.drawable.ic_lock_idle_lock)
 
             val intent = Intent(context, DoorWidgetProvider::class.java).apply {
                 action = ACTION_UNLOCK
@@ -95,38 +96,46 @@ class DoorWidgetProvider : AppWidgetProvider() {
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val views = RemoteViews(context.packageName, R.layout.widget_door)
         views.setTextViewText(R.id.widget_door_name, doorName)
-        views.setTextViewText(R.id.widget_status, "Unlocking...")
+        views.setTextViewText(R.id.widget_status, "…")
+        views.setViewVisibility(R.id.widget_status, android.view.View.VISIBLE)
+        views.setImageViewResource(R.id.widget_unlock_icon, android.R.drawable.ic_lock_idle_lock)
         appWidgetManager.updateAppWidget(widgetId, views)
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val session = getSession(context)
                 if (session == null) {
-                    updateStatus(context, widgetId, doorName, "Not logged in")
+                    setWidgetState(context, widgetId, doorName, "Login!", unlocked = false)
                     return@launch
                 }
                 val api = VerkadaApi()
                 val result = api.unlockDoor(session, doorId)
                 if (result.isSuccess) {
-                    updateStatus(context, widgetId, doorName, "✓ Unlocked")
+                    setWidgetState(context, widgetId, doorName, "✓", unlocked = true)
                 } else {
-                    updateStatus(context, widgetId, doorName, "✗ Failed")
+                    setWidgetState(context, widgetId, doorName, "✗", unlocked = false)
                 }
             } catch (e: Exception) {
-                updateStatus(context, widgetId, doorName, "✗ Error")
+                setWidgetState(context, widgetId, doorName, "✗", unlocked = false)
             }
 
-            // Reset to "Tap to unlock" after 3 seconds
+            // Reset after 3 seconds
             kotlinx.coroutines.delay(3000)
-            updateStatus(context, widgetId, doorName, "Tap to unlock")
+            updateWidget(context, AppWidgetManager.getInstance(context), widgetId)
         }
     }
 
-    private fun updateStatus(context: Context, widgetId: Int, doorName: String, status: String) {
+    private fun setWidgetState(context: Context, widgetId: Int, doorName: String, status: String, unlocked: Boolean) {
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val views = RemoteViews(context.packageName, R.layout.widget_door)
         views.setTextViewText(R.id.widget_door_name, doorName)
         views.setTextViewText(R.id.widget_status, status)
+        views.setViewVisibility(R.id.widget_status, android.view.View.VISIBLE)
+        views.setImageViewResource(
+            R.id.widget_unlock_icon,
+            if (unlocked) android.R.drawable.ic_lock_idle_low_battery
+            else android.R.drawable.ic_lock_idle_lock
+        )
 
         // Re-attach click handler
         val intent = Intent(context, DoorWidgetProvider::class.java).apply {

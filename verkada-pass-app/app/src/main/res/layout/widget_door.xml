@@ -1,40 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/widget_background"
-    android:padding="12dp">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/widget_unlock_icon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:contentDescription="Unlock"
+        android:src="@android:drawable/ic_lock_idle_lock"
+        android:tint="#FFFFFF" />
 
     <TextView
         android:id="@+id/widget_door_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="4dp"
         android:ellipsize="end"
+        android:gravity="center"
         android:maxLines="2"
         android:text="Door"
         android:textColor="#FFFFFF"
-        android:textSize="14sp"
+        android:textSize="11sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/widget_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/widget_unlock_icon"
-        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:maxLines="1"
         android:text=""
         android:textColor="#B0FFFFFF"
-        android:textSize="11sp" />
+        android:textSize="10sp"
+        android:visibility="gone" />
 
-    <ImageView
-        android:id="@+id/widget_unlock_icon"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="Unlock"
-        android:src="@android:drawable/ic_lock_idle_lock" />
-
-</RelativeLayout>
+</LinearLayout>
