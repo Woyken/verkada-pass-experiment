@@ -13,7 +13,7 @@
   .\capture-ble.ps1 analyze [path]
 #>
 
-param([string]$Action = "auto", [string]$LogFile = "", [int]$WaitSeconds = 20)
+param([string]$Action = "auto", [string]$LogFile = "", [int]$WaitSeconds = 20, [switch]$NoRestart)
 
 $CaptureDir = $PSScriptRoot
 
@@ -27,11 +27,15 @@ function Step-Pre {
     adb shell settings put secure bluetooth_hci_log 1
     adb shell settings put global bluetooth_hci_log 1
 
-    Write-Host "Restarting Bluetooth to start a fresh log file..."
-    adb shell svc bluetooth disable
-    Start-Sleep -Seconds 3
-    adb shell svc bluetooth enable
-    Start-Sleep -Seconds 2
+    if (-not $script:NoRestart) {
+        Write-Host "Restarting Bluetooth to start a fresh log file..."
+        adb shell svc bluetooth disable
+        Start-Sleep -Seconds 3
+        adb shell svc bluetooth enable
+        Start-Sleep -Seconds 2
+    } else {
+        Write-Host "Skipping BT restart (--NoRestart). Using existing log."
+    }
 
     $val = (adb shell settings get secure bluetooth_hci_log).Trim()
     if ($val -eq "1") {
