@@ -28,6 +28,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".widget.TileSettingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.VerkadaPass" />
+
         <receiver
             android:name=".widget.DoorWidgetProvider"
             android:exported="true">

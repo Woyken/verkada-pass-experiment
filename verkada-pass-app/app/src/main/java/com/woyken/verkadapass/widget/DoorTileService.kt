@@ -63,12 +63,13 @@ abstract class DoorTileService : TileService() {
         super.onClick()
         val doorId = getDoorId(this, tileSlot)
         if (doorId == null) {
-            // Open main app to configure
-            val intent = Intent(this, com.woyken.verkadapass.MainActivity::class.java).apply {
+            // Open tile setup screen directly for this slot
+            val intent = Intent(this, TileSettingsActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                putExtra(TileSettingsActivity.EXTRA_TILE_SLOT, tileSlot)
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                startActivityAndCollapse(android.app.PendingIntent.getActivity(this, 0, intent, android.app.PendingIntent.FLAG_IMMUTABLE))
+                startActivityAndCollapse(android.app.PendingIntent.getActivity(this, tileSlot, intent, android.app.PendingIntent.FLAG_IMMUTABLE or android.app.PendingIntent.FLAG_UPDATE_CURRENT))
             } else {
                 @Suppress("DEPRECATION")
                 startActivityAndCollapse(intent)
