@@ -4,3 +4,4 @@ btsnoop_hci-*.log
 bugreport-*.zip
 test-capture.zip
 btsnooz_hci.log
+bt_dump_temp.txt
