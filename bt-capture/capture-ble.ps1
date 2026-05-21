@@ -43,7 +43,7 @@ function Step-Pre {
 }
 
 function Step-Wait([int]$seconds) {
-    Write-Step "=== [2/4] Your turn — do the thing on the phone ===" "Yellow"
+    Write-Step "=== [2/4] Your turn - do the thing on the phone ===" "Yellow"
     Write-Host ""
     Write-Host "  >> Open Verkada Pass, trigger unlock at the door (or interact with watch)" -ForegroundColor White
     Write-Host ""
@@ -54,7 +54,7 @@ function Step-Wait([int]$seconds) {
         $empty  = $bar - $filled
         $pct    = [int](($seconds - $i) / $seconds * 100)
         $prog   = ('#' * $filled) + ('-' * $empty)
-        Write-Host -NoNewline "`r  [$prog] $pct% — ${i}s remaining   "
+        Write-Host -NoNewline "`r  [$prog] $pct% - ${i}s remaining   "
         if ($i -gt 0) { Start-Sleep -Seconds 1 }
     }
     Write-Host "`r  [########################################] 100% -- done!          "
