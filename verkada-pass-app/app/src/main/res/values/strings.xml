@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Verkada Pass</string>
+    <string name="widget_description">Unlock a door with one tap</string>
 </resources>
