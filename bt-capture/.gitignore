@@ -1,0 +1,6 @@
+# captured logs and bugreports - large binary files
+btsnooz_hci-*.log
+btsnoop_hci-*.log
+bugreport-*.zip
+test-capture.zip
+btsnooz_hci.log
