@@ -1,29 +1,21 @@
 package com.woyken.verkadapass.data
 
+import android.net.Uri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.double
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.OutputStreamWriter
+import java.net.HttpURLConnection
+import java.net.URL
 import java.net.URLDecoder
-import java.util.concurrent.TimeUnit
 
 class VerkadaApi {
 
-    private val client = OkHttpClient.Builder()
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
-        .build()
-
     private val json = Json { ignoreUnknownKeys = true }
-    private val jsonMediaType = "application/json; charset=utf-8".toMediaType()
 
     companion object {
         private const val LOGIN_URL = "https://vprovision.command.verkada.com/user/login"
@@ -40,7 +32,7 @@ class VerkadaApi {
     )
 
     fun parseMagicLinkUrl(url: String): MagicLinkParams {
-        val uri = android.net.Uri.parse(url)
+        val uri = Uri.parse(url)
         return MagicLinkParams(
             magicToken = uri.getQueryParameter("magicToken") ?: throw IllegalArgumentException("Missing magicToken"),
             entityId = uri.getQueryParameter("entityId") ?: throw IllegalArgumentException("Missing entityId"),
@@ -49,17 +41,31 @@ class VerkadaApi {
         )
     }
 
+    private fun post(urlString: String, body: String, headers: Map<String, String> = emptyMap()): String {
+        val conn = URL(urlString).openConnection() as HttpURLConnection
+        conn.requestMethod = "POST"
+        conn.setRequestProperty("Content-Type", "application/json; charset=utf-8")
+        conn.setRequestProperty("Accept", "application/json")
+        headers.forEach { (k, v) -> conn.setRequestProperty(k, v) }
+        conn.doOutput = true
+        conn.connectTimeout = 30_000
+        conn.readTimeout = 30_000
+        OutputStreamWriter(conn.outputStream, Charsets.UTF_8).use { it.write(body) }
+        val code = conn.responseCode
+        val responseBody = if (code in 200..299) {
+            conn.inputStream.bufferedReader().readText()
+        } else {
+            val err = conn.errorStream?.bufferedReader()?.readText() ?: ""
+            throw RuntimeException("HTTP $code: $err")
+        }
+        conn.disconnect()
+        return responseBody
+    }
+
     suspend fun requestMagicLink(email: String): Result<Unit> = withContext(Dispatchers.IO) {
         runCatching {
-            val body = """{"email":"$email","tokenScopeTypes":["PASS_APP"]}"""
-            val request = Request.Builder()
-                .url(MAGIC_LINK_URL)
-                .post(body.toRequestBody(jsonMediaType))
-                .build()
-            val response = client.newCall(request).execute()
-            if (!response.isSuccessful) {
-                throw RuntimeException("Magic link request failed: ${response.code} ${response.body?.string()}")
-            }
+            post(MAGIC_LINK_URL, """{"email":"$email","tokenScopeTypes":["PASS_APP"]}""")
+            Unit
         }
     }
 
@@ -76,15 +82,7 @@ class VerkadaApi {
                 append("\"notificationPermissions\":null")
                 append("}")
             }
-            val request = Request.Builder()
-                .url(LOGIN_URL)
-                .post(body.toRequestBody(jsonMediaType))
-                .build()
-            val response = client.newCall(request).execute()
-            val responseBody = response.body?.string() ?: throw RuntimeException("Empty response")
-            if (!response.isSuccessful) {
-                throw RuntimeException("Login failed: ${response.code} $responseBody")
-            }
+            val responseBody = post(LOGIN_URL, body)
             val obj = json.parseToJsonElement(responseBody).jsonObject
             SessionData(
                 userToken = obj["userToken"]?.jsonPrimitive?.content ?: throw RuntimeException("No userToken"),
@@ -99,17 +97,11 @@ class VerkadaApi {
     suspend fun listDoors(session: SessionData): Result<List<DoorItem>> = withContext(Dispatchers.IO) {
         runCatching {
             val body = """{"organizationId":"${session.organizationId}"}"""
-            val request = Request.Builder()
-                .url(ACCESS_POINTS_URL)
-                .post(body.toRequestBody(jsonMediaType))
-                .addHeader("x-verkada-token", session.userToken)
-                .addHeader("x-verkada-organization-id", session.organizationId)
-                .build()
-            val response = client.newCall(request).execute()
-            val responseBody = response.body?.string() ?: throw RuntimeException("Empty response")
-            if (!response.isSuccessful) {
-                throw RuntimeException("List doors failed: ${response.code} $responseBody")
-            }
+            val headers = mapOf(
+                "x-verkada-token" to session.userToken,
+                "x-verkada-organization-id" to session.organizationId,
+            )
+            val responseBody = post(ACCESS_POINTS_URL, body, headers)
             val obj = json.parseToJsonElement(responseBody).jsonObject
             val unlockables = obj["unlockables"]?.jsonObject ?: obj["accessPoints"]?.jsonObject
                 ?: throw RuntimeException("No unlockables in response")
@@ -130,17 +122,11 @@ class VerkadaApi {
         runCatching {
             val url = String.format(UNLOCK_URL_TEMPLATE, accessPointId)
             val body = """{"unlockMethod":"nearby"}"""
-            val request = Request.Builder()
-                .url(url)
-                .post(body.toRequestBody(jsonMediaType))
-                .addHeader("x-verkada-token", session.userToken)
-                .addHeader("x-verkada-organization-id", session.organizationId)
-                .build()
-            val response = client.newCall(request).execute()
-            val responseBody = response.body?.string() ?: throw RuntimeException("Empty response")
-            if (!response.isSuccessful) {
-                throw RuntimeException("Unlock failed: ${response.code} $responseBody")
-            }
+            val headers = mapOf(
+                "x-verkada-token" to session.userToken,
+                "x-verkada-organization-id" to session.organizationId,
+            )
+            val responseBody = post(url, body, headers)
             val obj = json.parseToJsonElement(responseBody).jsonObject
             UnlockResult(
                 success = true,
@@ -149,3 +135,4 @@ class VerkadaApi {
         }
     }
 }
+
