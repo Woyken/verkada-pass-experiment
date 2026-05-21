@@ -4,6 +4,122 @@ Exact data flowing over each transport, showing direction and byte-level payload
 
 ---
 
+## 0. Complete Physical Proximity Unlock — What Happens When You Approach a Door
+
+This diagram explains the full user experience: why the door doesn't unlock when you're far away,
+what exactly triggers it when you get close, and what protocol is used at each stage.
+
+**Key insight:** There is NO NFC involved. The "tap" is purely BLE-based. The reader uses BLE RSSI
+(signal strength) to determine physical proximity. The reader's firmware decides when to initiate
+the GATT connection based on its own RSSI threshold — this is NOT controlled by the phone.
+
+```mermaid
+sequenceDiagram
+    participant User as User + Phone
+    participant PhoneBLE as Phone BLE Stack
+    participant Air as Over-the-Air (BLE radio)
+    participant ReaderBLE as DML Reader BLE Stack
+    participant ReaderFW as Reader Firmware
+
+    Note over User, ReaderFW: === PHASE 1: App startup (once, stays running) ===
+
+    User->>PhoneBLE: Open Verkada Pass app
+    PhoneBLE->>PhoneBLE: BleService starts as foreground service
+    PhoneBLE->>Air: Start advertising FD3A + A4DD (connectable)
+    Note over PhoneBLE: Phone is now a BLE peripheral<br/>broadcasting continuously
+
+    PhoneBLE->>PhoneBLE: Start iBeacon ranging (AltBeacon library)
+    Note over PhoneBLE: Listening for UUID AC3EF23C-70D8-...<br/>Also start scanning for FD3B (central mode)
+
+    Note over User, ReaderFW: === PHASE 2: User is far from door (>5m) ===
+
+    ReaderBLE->>Air: iBeacon ADV (every ~100ms-1s)
+    Note over Air: UUID + major + minor + TX power<br/>Signal too weak to reach phone
+
+    Note over PhoneBLE: Phone does NOT receive iBeacon<br/>→ Door NOT in "Nearby" list<br/>→ No BLE GATT possible (too far)
+
+    Note over ReaderFW: Reader continuously scans for FD3A advertisers<br/>Phone's FD3A advertisement exists but RSSI too low<br/>→ Reader does NOT connect
+
+    Note over User, ReaderFW: === PHASE 3: User walks closer (1-5m range) ===
+
+    ReaderBLE->>Air: iBeacon ADV
+    Air->>PhoneBLE: iBeacon received (RSSI ~ -70 to -50 dBm)
+    PhoneBLE->>PhoneBLE: AltBeacon matches UUID + extracts (major, minor)
+    PhoneBLE->>User: UI: Door appears in "Nearby Doors" section
+    Note over User: Button-tap unlock NOW available via HTTP<br/>But auto-unlock still NOT triggered
+
+    Note over ReaderFW: Reader sees phone's FD3A advertisement<br/>but RSSI still below connect threshold<br/>→ Reader still does NOT connect
+
+    Note over User, ReaderFW: === PHASE 4: User holds phone very close (1-2cm) ===
+    Note over User, ReaderFW: THIS is what triggers the unlock
+
+    PhoneBLE->>Air: FD3A advertisement (same as always)
+    Air->>ReaderBLE: Phone's ADV received with very high RSSI (~-20 to -10 dBm)
+
+    ReaderFW->>ReaderFW: RSSI exceeds firmware threshold!
+    Note over ReaderFW: Decision is made ENTIRELY by reader firmware<br/>Phone has no say in this — phone is just advertising<br/>Reader threshold is configured by Verkada (not user-adjustable)
+
+    ReaderFW->>ReaderBLE: Initiate GATT connection to phone
+    ReaderBLE->>Air: BLE Connect Request (CONNECT_IND)
+    Air->>PhoneBLE: Connection established
+
+    Note over User, ReaderFW: === PHASE 5: GATT data exchange (automatic, ~200ms) ===
+
+    ReaderBLE->>PhoneBLE: Write to char 0x1001 (no response)
+    Note over ReaderBLE, PhoneBLE: [readerPubKey 32 bytes][readerSerial UTF-8]
+
+    PhoneBLE->>PhoneBLE: Crypto: X25519 key exchange + HMAC-SHA512/256
+    Note over PhoneBLE: Compute 80-byte payload in background
+
+    ReaderBLE->>PhoneBLE: Read char 0x2000 (poll)
+    PhoneBLE-->>ReaderBLE: 0x32 (not ready yet)
+
+    ReaderBLE->>PhoneBLE: Read char 0x2000 (poll again)
+    PhoneBLE-->>ReaderBLE: 80 bytes: [phonePubKey][authTag][userId]
+
+    ReaderFW->>ReaderFW: Verify auth tag locally
+    Note over ReaderFW: Uses its own private key + phone's public key<br/>to derive same session keys and verify HMAC
+
+    ReaderFW->>ReaderFW: Auth valid → UNLOCK DOOR
+    Note over ReaderFW: Door strikes open for configured duration
+
+    ReaderBLE->>Air: BLE Disconnect
+    Air->>PhoneBLE: Connection terminated
+```
+
+### Why doesn't it unlock when you're far away?
+
+| Distance | What's happening | Why no unlock |
+|---|---|---|
+| >5m | Phone advertises FD3A. Reader broadcasts iBeacon. Both signals too weak to reach each other reliably. | No connection possible |
+| 1-5m | Phone receives iBeacon → "Nearby" UI appears. Reader sees phone's FD3A but signal too weak. | Reader's RSSI threshold not met → no GATT connect |
+| 1-2cm | Reader receives phone's FD3A at very high signal strength (-20 to -10 dBm) | **Reader firmware triggers GATT connection** → unlock proceeds |
+
+### What is the "tap" / "wave"?
+
+**It's NOT NFC.** It's standard BLE (Bluetooth Low Energy) at very close range. The mechanism is:
+
+1. Phone continuously broadcasts BLE advertisements (service UUID `FD3A`)
+2. Reader continuously scans for `FD3A` advertisements
+3. Reader firmware has an **RSSI threshold** (signal strength cutoff) — configured by Verkada
+4. When the phone is held extremely close (~1-2cm), the BLE signal arrives at very high power
+5. Reader detects RSSI above threshold → initiates GATT connection → data exchange → door unlocks
+
+The phone does **nothing active** to trigger this. It's passive — just advertising. The reader makes the decision.
+
+### Central mode trigger (Apollo readers)
+
+For Apollo readers (serial starts with `APL`), the trigger works differently:
+
+1. Reader advertises service `FD3B` when it detects something nearby (capacitive sensor / button press / motion)
+2. Phone's background scan picks up `FD3B` advertisement
+3. Phone initiates GATT connection to reader (phone is client)
+4. Same 80-byte payload exchange, just reversed transport direction
+
+The phone's scan for `FD3B` runs continuously via `PendingIntent` — it works even with the app in background.
+
+---
+
 ## 1. iBeacon Advertisement (Reader → Phone, over-the-air)
 
 The DML reader continuously broadcasts standard Apple iBeacon frames. The phone passively receives them.
@@ -157,13 +273,22 @@ Step 2: Auth Tag (libsodium crypto_auth = HMAC-SHA512/256)
 Phone is GATT **client**. Reader is GATT **server**. No internet involved.  
 Roles of characteristics are **reversed** from peripheral mode.
 
+**Trigger:** The reader (typically Apollo, serial starts `APL`) begins advertising `FD3B` when it
+detects physical presence — likely via capacitive touch sensor, IR motion sensor, or button press
+on the reader hardware. This is reader firmware behavior, not controlled by the phone. The phone's
+background scan picks it up automatically.
+
 ```mermaid
 sequenceDiagram
     participant Phone as Phone (GATT Client)
-    participant Reader as DML Reader (GATT Server on FD3B)
+    participant Reader as Apollo Reader (GATT Server on FD3B)
 
-    Phone->>Phone: BLE scan detects FD3B service
-    Note over Phone: ScanFilter: serviceUuid=0xFD3B<br/>ScanSettings: SCAN_MODE_LOW_LATENCY (2)<br/>CALLBACK_TYPE_FIRST_MATCH (1)
+    Note over Reader: Reader detects physical presence<br/>(capacitive sensor / button / motion)<br/>→ Starts advertising FD3B
+
+    Reader->>Phone: FD3B advertisement (with mfg data containing serial)
+
+    Phone->>Phone: PendingIntent BLE scan matches FD3B
+    Note over Phone: ScanFilter: serviceUuid=0xFD3B<br/>ScanSettings: SCAN_MODE_LOW_LATENCY (2)<br/>CALLBACK_TYPE_FIRST_MATCH (1)<br/>Delivered via BlePendingIntentScanResultBroadcastReceiver
 
     Phone->>Phone: Extract serial from manufacturer data
     Note over Phone: ScanRecord.getManufacturerSpecificData()<br/>mfgId (2 bytes) + payload → concatenate → UTF-8 string = serial<br/>APL-prefix = Apollo device (always allowed)
