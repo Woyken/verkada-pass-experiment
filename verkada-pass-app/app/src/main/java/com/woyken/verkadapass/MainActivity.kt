@@ -17,6 +17,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.woyken.verkadapass.ui.DoorListScreen
 import com.woyken.verkadapass.ui.EmailInputScreen
 import com.woyken.verkadapass.ui.MagicLinkInputScreen
+import com.woyken.verkadapass.ui.TileSettingsScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +56,13 @@ class MainActivity : ComponentActivity() {
                                 onRefresh = viewModel::refreshDoors,
                                 onLogout = viewModel::logout,
                                 onDismissError = viewModel::dismissError,
+                                onOpenTileSettings = viewModel::navigateToTileSettings,
+                            )
+                        }
+                        AppScreen.TileSettings -> {
+                            TileSettingsScreen(
+                                doors = state.doors,
+                                onBack = viewModel::navigateBack,
                             )
                         }
                     }

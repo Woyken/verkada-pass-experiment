@@ -26,6 +26,7 @@ fun DoorListScreen(
     onRefresh: () -> Unit,
     onLogout: () -> Unit,
     onDismissError: () -> Unit,
+    onOpenTileSettings: () -> Unit = {},
 ) {
     var showMenu by remember { mutableStateOf(false) }
 
@@ -53,6 +54,13 @@ fun DoorListScreen(
                                 )
                                 HorizontalDivider()
                             }
+                            DropdownMenuItem(
+                                text = { Text("Quick Settings Tiles") },
+                                onClick = {
+                                    showMenu = false
+                                    onOpenTileSettings()
+                                },
+                            )
                             DropdownMenuItem(
                                 text = { Text("Logout") },
                                 onClick = {

@@ -39,6 +39,54 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_door_info" />
         </receiver>
+
+        <service
+            android:name=".widget.DoorTile1"
+            android:exported="true"
+            android:label="Door Tile 1"
+            android:icon="@drawable/ic_tile_lock"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE" android:value="false" />
+        </service>
+
+        <service
+            android:name=".widget.DoorTile2"
+            android:exported="true"
+            android:label="Door Tile 2"
+            android:icon="@drawable/ic_tile_lock"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE" android:value="false" />
+        </service>
+
+        <service
+            android:name=".widget.DoorTile3"
+            android:exported="true"
+            android:label="Door Tile 3"
+            android:icon="@drawable/ic_tile_lock"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE" android:value="false" />
+        </service>
+
+        <service
+            android:name=".widget.DoorTile4"
+            android:exported="true"
+            android:label="Door Tile 4"
+            android:icon="@drawable/ic_tile_lock"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE" android:value="false" />
+        </service>
     </application>
 
 </manifest>

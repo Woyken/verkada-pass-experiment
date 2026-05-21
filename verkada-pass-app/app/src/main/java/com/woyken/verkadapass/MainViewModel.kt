@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-enum class AppScreen { Loading, EmailInput, MagicLinkInput, DoorList }
+enum class AppScreen { Loading, EmailInput, MagicLinkInput, DoorList, TileSettings }
 
 data class AppUiState(
     val screen: AppScreen = AppScreen.Loading,
@@ -145,6 +145,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
             )
         }
+    }
+
+    fun navigateToTileSettings() {
+        _state.value = _state.value.copy(screen = AppScreen.TileSettings)
+    }
+
+    fun navigateBack() {
+        _state.value = _state.value.copy(screen = AppScreen.DoorList)
     }
 
     fun logout() {
