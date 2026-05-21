@@ -25,6 +25,7 @@ HCI_EVENT = 0x04
 # HCI event codes
 EVT_LE_META = 0x3E
 LE_ADV_REPORT = 0x02
+LE_EXT_ADV_REPORT = 0x0D  # Extended Advertising Report (Android 12+ / BT 5.0+)
 LE_CONN_COMPLETE = 0x01
 
 # ATT opcodes
@@ -84,6 +85,33 @@ def parse_le_adv_report(data):
         offset   += adv_len + 1
         reports.append({'evt_type': evt_type, 'bdaddr': bdaddr,
                         'ad': ad_data, 'rssi': rssi - 256 if rssi > 127 else rssi})
+    return reports
+
+
+def parse_le_ext_adv_report(data):
+    """Parse LE Meta Subevent 0x0D (LE Extended Advertising Report).
+    Used by Android 12+/BT 5.0+ instead of legacy 0x02.
+    Returns list of dicts with bdaddr, raw_ad, rssi."""
+    reports = []
+    if len(data) < 1:
+        return reports
+    num = data[0]
+    offset = 1
+    for _ in range(num):
+        if offset + 24 > len(data):
+            break
+        evt_type = struct.unpack('<H', data[offset:offset+2])[0]
+        addr_type = data[offset+2]
+        bdaddr = ':'.join('%02X' % b for b in reversed(data[offset+3:offset+9]))
+        # primary_phy(1) + secondary_phy(1) + adv_sid(1) + tx_power(1) + rssi(1)
+        rssi_byte = data[offset+13]
+        rssi = rssi_byte - 256 if rssi_byte > 127 else rssi_byte
+        # periodic_adv_interval(2) + direct_addr_type(1) + direct_addr(6)
+        data_len = data[offset+23]
+        ad_data = data[offset+24:offset+24+data_len]
+        offset += 24 + data_len
+        reports.append({'evt_type': evt_type, 'bdaddr': bdaddr,
+                        'ad': ad_data, 'rssi': rssi})
     return reports
 
 
@@ -215,7 +243,53 @@ def analyze(path):
                                     if uuid in (UUID_FD3A, UUID_FD3B, UUID_A4DD):
                                         svc_uuids.append('0x%04X' % struct.unpack('<H', uuid)[0])
                                         is_verkada = True
+                            # Service Data (16-bit UUID)
+                            if ad_type == 0x16 and len(value) >= 2:
+                                svc = struct.unpack('<H', value[:2])[0]
+                                if svc in (0xFD3A, 0xFD3B, 0xA4DD):
+                                    svc_uuids.append('0x%04X(svcdata)' % svc)
+                                    is_verkada = True
                             # Manufacturer Specific
+                            if ad_type == 0xFF:
+                                ib = check_ibeacon(value)
+                                if ib:
+                                    ibeacon_info = ib
+                                    is_verkada = True
+
+                        if is_verkada:
+                            verkada_devices.add(rpt['bdaddr'])
+                            if svc_uuids:
+                                print('[%s] ADV  %s  RSSI=%ddBm  Services=%s' % (
+                                    ts_str, rpt['bdaddr'], rpt['rssi'], ','.join(svc_uuids)))
+                            if ibeacon_info:
+                                major, minor, txp = ibeacon_info
+                                print('[%s] iBEACON  %s  major=%d minor=%d txPower=%ddBm  RSSI=%ddBm' % (
+                                    ts_str, rpt['bdaddr'], major, minor, txp, rpt['rssi']))
+                                gatt_events.append({'ts': ts_str, 'event': 'IBEACON',
+                                                    'bdaddr': rpt['bdaddr'],
+                                                    'major': major, 'minor': minor,
+                                                    'rssi': rpt['rssi']})
+
+                # LE Extended Advertising Report (BT 5.0+ / Android 12+)
+                elif subevent == LE_EXT_ADV_REPORT:
+                    for rpt in parse_le_ext_adv_report(payload[4:]):
+                        ads = parse_ad_structures(rpt['ad'])
+                        is_verkada = False
+                        ibeacon_info = None
+                        svc_uuids = []
+
+                        for ad_type, value in ads:
+                            if ad_type in (0x02, 0x03):
+                                for i in range(0, len(value)-1, 2):
+                                    uuid = value[i:i+2]
+                                    if uuid in (UUID_FD3A, UUID_FD3B, UUID_A4DD):
+                                        svc_uuids.append('0x%04X' % struct.unpack('<H', uuid)[0])
+                                        is_verkada = True
+                            if ad_type == 0x16 and len(value) >= 2:
+                                svc = struct.unpack('<H', value[:2])[0]
+                                if svc in (0xFD3A, 0xFD3B, 0xA4DD):
+                                    svc_uuids.append('0x%04X(svcdata)' % svc)
+                                    is_verkada = True
                             if ad_type == 0xFF:
                                 ib = check_ibeacon(value)
                                 if ib:
