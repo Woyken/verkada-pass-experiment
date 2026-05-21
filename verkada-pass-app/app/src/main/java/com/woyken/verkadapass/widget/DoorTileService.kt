@@ -83,11 +83,10 @@ abstract class DoorTileService : TileService() {
         val doorName = getDoorName(this, tileSlot)
         if (doorName != null) {
             tile.label = doorName
-            tile.state = Tile.STATE_INACTIVE
         } else {
-            tile.label = "Set up tile"
-            tile.state = Tile.STATE_UNAVAILABLE
+            tile.label = "Tap to set up"
         }
+        tile.state = Tile.STATE_INACTIVE
         tile.updateTile()
     }
 
