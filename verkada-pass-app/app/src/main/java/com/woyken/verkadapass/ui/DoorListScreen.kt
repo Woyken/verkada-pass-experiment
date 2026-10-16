@@ -10,10 +10,13 @@ import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.LockOpen
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.StarBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.woyken.verkadapass.AppUiState
 import com.woyken.verkadapass.data.DoorItem
@@ -23,6 +26,7 @@ import com.woyken.verkadapass.data.DoorItem
 fun DoorListScreen(
     state: AppUiState,
     onUnlock: (DoorItem) -> Unit,
+    onToggleFavorite: (DoorItem) -> Unit,
     onRefresh: () -> Unit,
     onLogout: () -> Unit,
     onDismissError: () -> Unit,
@@ -106,9 +110,11 @@ fun DoorListScreen(
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
-                    items(state.doors, key = { it.accessPointId }) { door ->
+                    items(state.doors.sortedByDescending { it.accessPointId in state.favoriteDoorIds }, key = { it.accessPointId }) { door ->
                         DoorCard(
                             door = door,
+                            isFavorite = door.accessPointId in state.favoriteDoorIds,
+                            onToggleFavorite = { onToggleFavorite(door) },
                             isUnlocking = state.unlockingDoorId == door.accessPointId,
                             isUnlocked = state.unlockedDoorId == door.accessPointId,
                             onUnlock = { onUnlock(door) },
@@ -123,6 +129,8 @@ fun DoorListScreen(
 @Composable
 private fun DoorCard(
     door: DoorItem,
+    isFavorite: Boolean,
+    onToggleFavorite: () -> Unit,
     isUnlocking: Boolean,
     isUnlocked: Boolean,
     onUnlock: () -> Unit,
@@ -145,6 +153,13 @@ private fun DoorCard(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            IconToggleButton(checked = isFavorite, onCheckedChange = { onToggleFavorite() }) {
+                Icon(
+                    imageVector = if (isFavorite) Icons.Default.Star else Icons.Outlined.StarBorder,
+                    contentDescription = if (isFavorite) "Remove ${door.name} from favorites" else "Add ${door.name} to favorites",
+                    tint = if (isFavorite) Color(0xFFFFC107) else MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = door.name,

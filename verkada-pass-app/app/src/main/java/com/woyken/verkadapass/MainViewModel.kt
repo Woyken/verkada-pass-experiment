@@ -1,6 +1,7 @@
 package com.woyken.verkadapass
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.woyken.verkadapass.data.DoorItem
@@ -20,6 +21,7 @@ data class AppUiState(
     val magicLinkUrl: String = "",
     val session: SessionData? = null,
     val doors: List<DoorItem> = emptyList(),
+    val favoriteDoorIds: Set<String> = emptySet(),
     val isLoading: Boolean = false,
     val error: String? = null,
     val unlockingDoorId: String? = null,
@@ -30,8 +32,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val sessionStore = SessionStore(application)
     private val api = VerkadaApi()
+    private val favorites = application.getSharedPreferences("door_favorites", Context.MODE_PRIVATE)
 
-    private val _state = MutableStateFlow(AppUiState())
+    private val _state = MutableStateFlow(AppUiState(
+        favoriteDoorIds = favorites.getStringSet("door_ids", emptySet())?.toSet() ?: emptySet(),
+    ))
     val state: StateFlow<AppUiState> = _state
 
     init {
@@ -111,6 +116,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         loadDoors(session)
     }
 
+    fun toggleFavorite(door: DoorItem) {
+        val ids = _state.value.favoriteDoorIds
+        val updated = if (door.accessPointId in ids) ids - door.accessPointId else ids + door.accessPointId
+        favorites.edit().putStringSet("door_ids", updated).apply()
+        _state.value = _state.value.copy(favoriteDoorIds = updated)
+    }
+
     private fun loadDoors(session: SessionData) {
         viewModelScope.launch {
             _state.value = _state.value.copy(isLoading = true, error = null)
@@ -158,7 +170,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun logout() {
         viewModelScope.launch {
             sessionStore.clear()
-            _state.value = AppUiState(screen = AppScreen.EmailInput)
+            _state.value = AppUiState(screen = AppScreen.EmailInput, favoriteDoorIds = _state.value.favoriteDoorIds)
         }
     }
 
