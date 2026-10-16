@@ -9,10 +9,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.woyken.verkadapass.data.DoorItem
 import com.woyken.verkadapass.data.SessionData
@@ -72,6 +75,10 @@ private fun WidgetConfigScreen(onDoorSelected: (DoorItem) -> Unit) {
     var error by remember { mutableStateOf<String?>(null) }
 
     val context = androidx.compose.ui.platform.LocalContext.current
+    val favoriteDoorIds = remember {
+        context.getSharedPreferences("door_favorites", android.content.Context.MODE_PRIVATE)
+            .getStringSet("door_ids", emptySet())?.toSet() ?: emptySet()
+    }
 
     LaunchedEffect(Unit) {
         scope.launch {
@@ -122,23 +129,36 @@ private fun WidgetConfigScreen(onDoorSelected: (DoorItem) -> Unit) {
                         contentPadding = PaddingValues(16.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
-                        items(doors) { door ->
+                        items(doors.sortedByDescending { it.accessPointId in favoriteDoorIds }) { door ->
                             Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .clickable { onDoorSelected(door) },
                             ) {
-                                Column(modifier = Modifier.padding(16.dp)) {
-                                    Text(
-                                        text = door.name,
-                                        style = MaterialTheme.typography.titleMedium,
-                                    )
-                                    if (door.location.isNotBlank()) {
-                                        Text(
-                                            text = door.location,
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                Row(
+                                    modifier = Modifier.padding(16.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    if (door.accessPointId in favoriteDoorIds) {
+                                        Icon(
+                                            imageVector = Icons.Default.Star,
+                                            contentDescription = "Favorite",
+                                            tint = Color(0xFFFFC107),
                                         )
+                                        Spacer(Modifier.width(12.dp))
+                                    }
+                                    Column(modifier = Modifier.weight(1f)) {
+                                        Text(
+                                            text = door.name,
+                                            style = MaterialTheme.typography.titleMedium,
+                                        )
+                                        if (door.location.isNotBlank()) {
+                                            Text(
+                                                text = door.location,
+                                                style = MaterialTheme.typography.bodySmall,
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            )
+                                        }
                                     }
                                 }
                             }

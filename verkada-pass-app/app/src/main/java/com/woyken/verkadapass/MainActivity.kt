@@ -53,6 +53,7 @@ class MainActivity : ComponentActivity() {
                             DoorListScreen(
                                 state = state,
                                 onUnlock = viewModel::unlockDoor,
+                                onToggleFavorite = viewModel::toggleFavorite,
                                 onRefresh = viewModel::refreshDoors,
                                 onLogout = viewModel::logout,
                                 onDismissError = viewModel::dismissError,
