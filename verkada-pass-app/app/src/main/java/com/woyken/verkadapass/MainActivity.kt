@@ -58,6 +58,9 @@ class MainActivity : ComponentActivity() {
                                 onLogout = viewModel::logout,
                                 onDismissError = viewModel::dismissError,
                                 onOpenTileSettings = viewModel::navigateToTileSettings,
+                                onCheckForUpdate = viewModel::checkForUpdate,
+                                onDownloadUpdate = viewModel::openReleasePage,
+                                onDismissUpdate = viewModel::dismissUpdate,
                             )
                         }
                         AppScreen.TileSettings -> {

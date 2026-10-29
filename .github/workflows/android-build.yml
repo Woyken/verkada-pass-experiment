@@ -6,6 +6,9 @@ on:
       - main
     paths:
       - "verkada-pass-app/**"
+  pull_request:
+    paths:
+      - "verkada-pass-app/**"
 
 jobs:
   build:
@@ -29,18 +32,25 @@ jobs:
         working-directory: verkada-pass-app
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleDebug --no-daemon -PversionCode=$GITHUB_RUN_NUMBER
 
       - name: Delete existing release
+        if: github.event_name == 'push'
         run: gh release delete android-latest --yes --cleanup-tag 2>/dev/null || true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release with APK
+        if: github.event_name == 'push'
         run: |
+          # The rolling tag never changes, so the app reads the version from
+          # these notes (see UpdateChecker.kt).
+          notes="$(printf 'versionCode: %s\nversionName: 1.0.%s\n\nBuilt from [%s](%s/commit/%s)' \
+            "$GITHUB_RUN_NUMBER" "$GITHUB_RUN_NUMBER" "${GITHUB_SHA::7}" \
+            "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" "$GITHUB_SHA")"
           gh release create android-latest \
             --title "Latest Android Build" \
-            --notes "Built from [\`${GITHUB_SHA::7}\`]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA)" \
+            --notes "$notes" \
             --prerelease \
             verkada-pass-app/app/build/outputs/apk/debug/app-debug.apk
         env:
