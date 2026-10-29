@@ -9,6 +9,8 @@ on:
   pull_request:
     paths:
       - "verkada-pass-app/**"
+  # Cut a release without touching app code, e.g. to test the in-app update banner.
+  workflow_dispatch:
 
 jobs:
   build:
@@ -35,13 +37,13 @@ jobs:
           ./gradlew assembleDebug --no-daemon -PversionCode=$GITHUB_RUN_NUMBER
 
       - name: Delete existing release
-        if: github.event_name == 'push'
+        if: github.event_name != 'pull_request'
         run: gh release delete android-latest --yes --cleanup-tag 2>/dev/null || true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release with APK
-        if: github.event_name == 'push'
+        if: github.event_name != 'pull_request'
         run: |
           # The rolling tag never changes, so the app reads the version from
           # these notes (see UpdateChecker.kt).
