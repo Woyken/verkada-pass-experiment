@@ -5,6 +5,10 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
+// CI passes -PversionCode=<workflow run number> so every published APK is newer
+// than the last one. Local builds fall back to 1.
+val appVersionCode = providers.gradleProperty("versionCode").orNull?.toIntOrNull() ?: 1
+
 android {
     namespace = "com.woyken.verkadapass"
     compileSdk = 35
@@ -13,8 +17,8 @@ android {
         applicationId = "com.woyken.verkadapass"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = appVersionCode
+        versionName = "1.0.$appVersionCode"
     }
 
     signingConfigs {
@@ -47,6 +51,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

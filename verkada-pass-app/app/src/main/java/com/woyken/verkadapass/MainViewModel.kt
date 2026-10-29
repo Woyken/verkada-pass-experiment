@@ -2,11 +2,15 @@ package com.woyken.verkadapass
 
 import android.app.Application
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.woyken.verkadapass.data.DoorItem
+import com.woyken.verkadapass.data.RemoteBuild
 import com.woyken.verkadapass.data.SessionData
 import com.woyken.verkadapass.data.SessionStore
+import com.woyken.verkadapass.data.UpdateChecker
 import com.woyken.verkadapass.data.VerkadaApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,18 +30,22 @@ data class AppUiState(
     val error: String? = null,
     val unlockingDoorId: String? = null,
     val unlockedDoorId: String? = null,
+    val updateAvailable: RemoteBuild? = null,
 )
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val sessionStore = SessionStore(application)
     private val api = VerkadaApi()
+    private val updateChecker = UpdateChecker(application)
     private val favorites = application.getSharedPreferences("door_favorites", Context.MODE_PRIVATE)
 
     private val _state = MutableStateFlow(AppUiState(
         favoriteDoorIds = favorites.getStringSet("door_ids", emptySet())?.toSet() ?: emptySet(),
     ))
     val state: StateFlow<AppUiState> = _state
+
+    private var updateCheckStarted = false
 
     init {
         viewModelScope.launch {
@@ -176,5 +184,36 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun dismissError() {
         _state.value = _state.value.copy(error = null)
+    }
+
+    /**
+     * Called when the door list is shown. At most one GitHub request per day;
+     * failures are silent because an update is never urgent enough to interrupt
+     * unlocking.
+     */
+    fun checkForUpdate() {
+        if (updateCheckStarted) return
+        updateCheckStarted = true
+        if (!updateChecker.isCheckDue()) return
+        updateChecker.markChecked()
+        viewModelScope.launch {
+            updateChecker.latestBuild().onSuccess { build ->
+                if (build.versionCode <= BuildConfig.VERSION_CODE) return@onSuccess
+                if (updateChecker.isDismissed()) return@onSuccess
+                _state.value = _state.value.copy(updateAvailable = build)
+            }
+        }
+    }
+
+    fun dismissUpdate() {
+        updateChecker.dismiss()
+        _state.value = _state.value.copy(updateAvailable = null)
+    }
+
+    fun openReleasePage() {
+        val context = getApplication<Application>()
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(UpdateChecker.RELEASE_PAGE_URL))
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
     }
 }

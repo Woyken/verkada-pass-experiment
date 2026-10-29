@@ -6,11 +6,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.LockOpen
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.SystemUpdate
 import androidx.compose.material.icons.outlined.StarBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -31,8 +33,13 @@ fun DoorListScreen(
     onLogout: () -> Unit,
     onDismissError: () -> Unit,
     onOpenTileSettings: () -> Unit = {},
+    onCheckForUpdate: () -> Unit = {},
+    onDownloadUpdate: () -> Unit = {},
+    onDismissUpdate: () -> Unit = {},
 ) {
     var showMenu by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) { onCheckForUpdate() }
 
     Scaffold(
         topBar = {
@@ -79,6 +86,14 @@ fun DoorListScreen(
         },
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
+            state.updateAvailable?.let { update ->
+                UpdateBanner(
+                    versionName = update.versionName,
+                    onDownload = onDownloadUpdate,
+                    onDismiss = onDismissUpdate,
+                )
+            }
+
             if (state.error != null) {
                 Snackbar(
                     modifier = Modifier.padding(16.dp),
@@ -121,6 +136,40 @@ fun DoorListScreen(
                         )
                     }
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun UpdateBanner(
+    versionName: String,
+    onDownload: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp),
+        shape = MaterialTheme.shapes.medium,
+        color = MaterialTheme.colorScheme.secondaryContainer,
+    ) {
+        Row(
+            modifier = Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp, end = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(Icons.Default.SystemUpdate, contentDescription = null)
+            Spacer(Modifier.width(12.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text("Update available", style = MaterialTheme.typography.titleSmall)
+                Text(
+                    text = "Version $versionName is ready to download",
+                    style = MaterialTheme.typography.bodySmall,
+                )
+            }
+            TextButton(onClick = onDownload) { Text("Download") }
+            IconButton(onClick = onDismiss) {
+                Icon(Icons.Default.Close, contentDescription = "Dismiss update")
             }
         }
     }
