@@ -10,7 +10,7 @@ This repo intentionally excludes proprietary APK files, decompiled app output, a
 
 A clean third-party Android app (`verkada-pass-app/`) that reproduces the Verkada Pass login flow and door unlock.
 
-**[⬇ Download latest APK](https://github.com/Woyken/verkada-pass-experiment/releases/tag/android-latest)**  
+**[⬇ Download latest APK](https://github.com/Woyken/verkada-pass-experiment/releases/latest)**  
 *(Built automatically by GitHub Actions on every change)*
 
 ### Features

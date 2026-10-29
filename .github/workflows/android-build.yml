@@ -36,24 +36,42 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon -PversionCode=$GITHUB_RUN_NUMBER
 
-      - name: Delete existing release
-        if: github.event_name != 'pull_request'
-        run: gh release delete android-latest --yes --cleanup-tag 2>/dev/null || true
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create release with APK
         if: github.event_name != 'pull_request'
         run: |
-          # The rolling tag never changes, so the app reads the version from
-          # these notes (see UpdateChecker.kt).
-          notes="$(printf 'versionCode: %s\nversionName: 1.0.%s\n\nBuilt from [%s](%s/commit/%s)' \
-            "$GITHUB_RUN_NUMBER" "$GITHUB_RUN_NUMBER" "${GITHUB_SHA::7}" \
+          # One release per build so the repository keeps a release history. The
+          # app picks the newest android-v* release and reads its versionCode.
+          version="1.0.$GITHUB_RUN_NUMBER"
+          tag="android-v$version"
+          title="Verkada Pass $version"
+          notes="$(printf 'versionCode: %s\nversionName: %s\n\nBuilt from [%s](%s/commit/%s)' \
+            "$GITHUB_RUN_NUMBER" "$version" "${GITHUB_SHA::7}" \
             "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" "$GITHUB_SHA")"
-          gh release create android-latest \
-            --title "Latest Android Build" \
-            --notes "$notes" \
-            --prerelease \
-            verkada-pass-app/app/build/outputs/apk/debug/app-debug.apk
+          apk=verkada-pass-app/app/build/outputs/apk/debug/app-debug.apk
+
+          # A rerun reuses its run number, so an old build can be replayed after a
+          # newer one. Compare against the highest published build, not the most
+          # recent list entry, and state "latest" explicitly: omitting the flag
+          # lets gh choose by date, which a late rerun would win.
+          tags="$(gh release list --limit 100 --json tagName --jq '.[].tagName')"
+          newest_build="$(printf '%s\n' "$tags" | awk -F. '/^android-v/{print $NF}' | sort -n | tail -1)"
+          if [[ -z "$newest_build" || "$GITHUB_RUN_NUMBER" -ge "$newest_build" ]]; then
+            latest_flag="--latest"
+          else
+            latest_flag="--latest=false"
+          fi
+
+          if gh release view "$tag" >/dev/null 2>&1; then
+            # Rerun: the asset is already this commit's APK, so keep the working
+            # download and refresh only the metadata.
+            if [[ "$latest_flag" == "--latest" ]]; then
+              gh release edit "$tag" --title "$title" --notes "$notes" --latest
+            else
+              gh release edit "$tag" --title "$title" --notes "$notes"
+            fi
+          else
+            gh release create "$tag" --target "$GITHUB_SHA" \
+              --title "$title" --notes "$notes" "$latest_flag" "$apk"
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
