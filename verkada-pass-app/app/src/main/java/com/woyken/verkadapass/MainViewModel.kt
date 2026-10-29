@@ -211,8 +211,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun openReleasePage() {
+        val url = _state.value.updateAvailable?.pageUrl ?: return
         val context = getApplication<Application>()
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(UpdateChecker.RELEASE_PAGE_URL))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
     }
